@@ -1,0 +1,29 @@
+cbcrm.web/.DS_Store
+cbcrm.web/node_modules
+cbcrm.web/dist
+cbcrm.api/obj
+cbcrm.api/bin
+cbcrm.core/obj
+cbcrm.core/bin
+cbcrm.service/obj
+cbcrm.service/bin
+
+# local env files
+.env.local
+.env.*.local
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor directories and files
+.idea
+.vscode
+.vs
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+

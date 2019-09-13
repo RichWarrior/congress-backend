@@ -1,0 +1,11 @@
+C:\Projects\congress-backend\Congress.PushNotification\bin\Debug\netcoreapp2.1\Congress.PushNotification.deps.json
+C:\Projects\congress-backend\Congress.PushNotification\bin\Debug\netcoreapp2.1\Congress.PushNotification.runtimeconfig.json
+C:\Projects\congress-backend\Congress.PushNotification\bin\Debug\netcoreapp2.1\Congress.PushNotification.runtimeconfig.dev.json
+C:\Projects\congress-backend\Congress.PushNotification\bin\Debug\netcoreapp2.1\Congress.PushNotification.dll
+C:\Projects\congress-backend\Congress.PushNotification\bin\Debug\netcoreapp2.1\Congress.PushNotification.pdb
+C:\Projects\congress-backend\Congress.PushNotification\obj\Debug\netcoreapp2.1\Congress.PushNotification.csprojAssemblyReference.cache
+C:\Projects\congress-backend\Congress.PushNotification\obj\Debug\netcoreapp2.1\Congress.PushNotification.csproj.CoreCompileInputs.cache
+C:\Projects\congress-backend\Congress.PushNotification\obj\Debug\netcoreapp2.1\Congress.PushNotification.AssemblyInfoInputs.cache
+C:\Projects\congress-backend\Congress.PushNotification\obj\Debug\netcoreapp2.1\Congress.PushNotification.AssemblyInfo.cs
+C:\Projects\congress-backend\Congress.PushNotification\obj\Debug\netcoreapp2.1\Congress.PushNotification.dll
+C:\Projects\congress-backend\Congress.PushNotification\obj\Debug\netcoreapp2.1\Congress.PushNotification.pdb

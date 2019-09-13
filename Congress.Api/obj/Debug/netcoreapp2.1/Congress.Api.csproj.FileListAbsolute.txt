@@ -1,0 +1,14 @@
+C:\Projects\congress-backend\Congress.Api\bin\Debug\netcoreapp2.1\Congress.Api.deps.json
+C:\Projects\congress-backend\Congress.Api\bin\Debug\netcoreapp2.1\Congress.Api.runtimeconfig.json
+C:\Projects\congress-backend\Congress.Api\bin\Debug\netcoreapp2.1\Congress.Api.runtimeconfig.dev.json
+C:\Projects\congress-backend\Congress.Api\bin\Debug\netcoreapp2.1\Congress.Api.dll
+C:\Projects\congress-backend\Congress.Api\bin\Debug\netcoreapp2.1\Congress.Api.pdb
+C:\Projects\congress-backend\Congress.Api\obj\Debug\netcoreapp2.1\Congress.Api.csprojAssemblyReference.cache
+C:\Projects\congress-backend\Congress.Api\obj\Debug\netcoreapp2.1\Congress.Api.csproj.CoreCompileInputs.cache
+C:\Projects\congress-backend\Congress.Api\obj\Debug\netcoreapp2.1\Congress.Api.RazorAssemblyInfo.cache
+C:\Projects\congress-backend\Congress.Api\obj\Debug\netcoreapp2.1\Congress.Api.RazorAssemblyInfo.cs
+C:\Projects\congress-backend\Congress.Api\obj\Debug\netcoreapp2.1\Congress.Api.AssemblyInfoInputs.cache
+C:\Projects\congress-backend\Congress.Api\obj\Debug\netcoreapp2.1\Congress.Api.AssemblyInfo.cs
+C:\Projects\congress-backend\Congress.Api\obj\Debug\netcoreapp2.1\Congress.Api.RazorTargetAssemblyInfo.cache
+C:\Projects\congress-backend\Congress.Api\obj\Debug\netcoreapp2.1\Congress.Api.dll
+C:\Projects\congress-backend\Congress.Api\obj\Debug\netcoreapp2.1\Congress.Api.pdb

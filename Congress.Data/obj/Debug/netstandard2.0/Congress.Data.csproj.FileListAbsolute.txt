@@ -1,0 +1,9 @@
+C:\Projects\congress-backend\Congress.Data\bin\Debug\netstandard2.0\Congress.Data.deps.json
+C:\Projects\congress-backend\Congress.Data\bin\Debug\netstandard2.0\Congress.Data.dll
+C:\Projects\congress-backend\Congress.Data\bin\Debug\netstandard2.0\Congress.Data.pdb
+C:\Projects\congress-backend\Congress.Data\obj\Debug\netstandard2.0\Congress.Data.csprojAssemblyReference.cache
+C:\Projects\congress-backend\Congress.Data\obj\Debug\netstandard2.0\Congress.Data.csproj.CoreCompileInputs.cache
+C:\Projects\congress-backend\Congress.Data\obj\Debug\netstandard2.0\Congress.Data.AssemblyInfoInputs.cache
+C:\Projects\congress-backend\Congress.Data\obj\Debug\netstandard2.0\Congress.Data.AssemblyInfo.cs
+C:\Projects\congress-backend\Congress.Data\obj\Debug\netstandard2.0\Congress.Data.dll
+C:\Projects\congress-backend\Congress.Data\obj\Debug\netstandard2.0\Congress.Data.pdb
