@@ -1,4 +1,5 @@
 ﻿using Dapper.Contrib.Extensions;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,6 +10,8 @@ namespace Congress.Core.Entity
     public class User : BaseEntity
     {
         public int userTypeId { get; set; }
+
+        public string userGuid { get; set; }
         public string name { get; set; }
         public string surname { get; set; }
         public string email{ get; set; }
@@ -25,6 +28,9 @@ namespace Congress.Core.Entity
         public int eventCount { get; set; }
         public int emailVerification { get; set; }
         public int profileStatus { get; set; }
-        public int notificationStatus { get; set; }       
+        public int notificationStatus { get; set; }  
+        
+        [Write(false)]
+        public IFormFile avatarFile { get; set; }
     }
 }

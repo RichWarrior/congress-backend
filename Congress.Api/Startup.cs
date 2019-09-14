@@ -1,6 +1,6 @@
-﻿
-
+﻿using Congress.Api.Hubs;
 using Congress.Core.Interface;
+using Congress.Data.Data;
 using Congress.Data.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -93,7 +93,11 @@ namespace Congress.Api
                 c.IncludeXmlComments(System.IO.Path.Combine(AppContext.BaseDirectory, xmlFile));
             });
 
+            services.AddSignalR();
+
+            services.AddScoped<IDbContext, DbContext>();
             services.AddScoped<IMethod, SMethod>();
+            services.AddScoped<IJob, SJob>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -111,6 +115,10 @@ namespace Congress.Api
            {
                c.SwaggerEndpoint("/swagger/Congress/swagger.json", "Congress Api");
            });
+
+            app.UseSignalR(routes => {
+                routes.MapHub<NotificationHub>("/NotificationHub");
+            });
         }
     }
 }

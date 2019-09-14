@@ -4,6 +4,12 @@
         <name>Congress.Api</name>
     </assembly>
     <members>
+        <member name="M:Congress.Api.Controllers.JobController.GetJobs">
+            <summary>
+            Meslek Dallarını Geri Döndürür.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Congress.Api.Controllers.UserController.Get">
             <summary>
             Giriş Yap

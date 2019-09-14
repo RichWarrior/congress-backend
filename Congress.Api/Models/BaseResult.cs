@@ -12,6 +12,8 @@ namespace Congress.Api.Models
         public BaseResult()
         {
             data = (T)Activator.CreateInstance(typeof(T));
+            statusCode = HttpStatusCode.OK;
+            errMessage = "İşleminiz Başarıyla Tamamlandı!";
         }
     }
 }
