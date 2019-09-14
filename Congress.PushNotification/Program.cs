@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Threading;
 
 namespace Congress.PushNotification
 {
@@ -6,7 +6,11 @@ namespace Congress.PushNotification
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            ThreadPool.SetMinThreads(10, 50);
+            while (true)
+            {
+                Thread.Sleep(2000);
+            }
         }
     }
 }

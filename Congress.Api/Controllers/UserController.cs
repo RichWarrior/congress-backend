@@ -1,19 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Congress.Core.Interface;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace Congress.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/user")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class UserController : BaseController
     {
-        // GET api/values
+        public UserController(IMethod _SMethod) : base(_SMethod)
+        {
+        }
+
+        /// <summary>
+        /// Giriş Yap
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
-        {
+        {            
             return new string[] { "value1", "value2" };
         }
 
