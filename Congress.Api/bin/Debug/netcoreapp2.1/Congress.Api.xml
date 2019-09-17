@@ -10,10 +10,31 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Congress.Api.Controllers.UserController.Get">
+        <member name="M:Congress.Api.Controllers.RegionController.GetCountries">
             <summary>
-            Giriş Yap
+            Ülkeleri Geri Döndürür.
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Congress.Api.Controllers.RegionController.GetCities(Congress.Core.Entity.City)">
+            <summary>
+            İstenilen Ülkeye Ait Şehirleri Getirir.
+            </summary>
+            <param name="model">Country Id Gereklidir.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Congress.Api.Controllers.UserController.Register(Congress.Core.Entity.User)">
+            <summary>
+            Kullanıcıyı Kayıt Eder
+            </summary>
+            <param name="model">Kayıt Edilecek Kullanıcı Modeli</param>
+            <returns></returns>
+        </member>
+        <member name="M:Congress.Api.Controllers.UserController.Login(Congress.Core.Entity.User)">
+            <summary>
+            Giriş Yapıp Token Almak İçin Kullanılır.
+            </summary>
+            <param name="user">E-Posta Adresi ve Şifre Yeterlidir</param>
             <returns></returns>
         </member>
     </members>

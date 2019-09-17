@@ -12,14 +12,15 @@ namespace Congress.Data.Service
     {
         public string StringToMd5(string password)
         {
-            StringBuilder sb = new StringBuilder();
+            string rtn = "";
             MD5CryptoServiceProvider provider = new MD5CryptoServiceProvider();
             byte[] byteArr = Encoding.UTF8.GetBytes(password);
+            byteArr = provider.ComputeHash(byteArr);
             foreach (byte _byte in byteArr)
             {
-                sb.Append(_byte.ToString("x2").ToLower());
+                rtn += _byte.ToString("x2").ToLower();
             }
-            return sb.ToString();
+            return rtn;
         }
 
         public string GetEnumValue(Enum _enum)

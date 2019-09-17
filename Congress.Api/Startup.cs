@@ -1,4 +1,5 @@
-﻿using Congress.Api.Hubs;
+﻿using Congress.Api.HubDispatcher;
+using Congress.Api.Hubs;
 using Congress.Core.Interface;
 using Congress.Data.Data;
 using Congress.Data.Service;
@@ -29,8 +30,7 @@ namespace Congress.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddCors();
-            services.AddMvc();
+            services.AddCors();         
 
             services.AddAuthentication(options =>
             {
@@ -48,7 +48,7 @@ namespace Congress.Api
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(
-                        Encoding.UTF8.GetBytes("CongressApi"))
+                        Encoding.UTF8.GetBytes("CongressBackendApi"))
                 };
 
                 options.Events = new JwtBearerEvents
@@ -98,6 +98,12 @@ namespace Congress.Api
             services.AddScoped<IDbContext, DbContext>();
             services.AddScoped<IMethod, SMethod>();
             services.AddScoped<IJob, SJob>();
+            services.AddScoped<ICountry, SCountry>();
+            services.AddScoped<ICity, SCity>();
+            services.AddScoped<IUser, SUser>();
+            services.AddScoped<IMinio, SMinio>();
+
+            services.AddSingleton<INotificationDispatcher, NotificationDispatcher>();       
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -106,7 +112,7 @@ namespace Congress.Api
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials());
+            app.UseCors(x => x.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod().AllowCredentials());
             app.UseAuthentication();
             app.UseMvc();
 
@@ -116,7 +122,8 @@ namespace Congress.Api
                c.SwaggerEndpoint("/swagger/Congress/swagger.json", "Congress Api");
            });
 
-            app.UseSignalR(routes => {
+            app.UseSignalR(routes =>
+            {
                 routes.MapHub<NotificationHub>("/NotificationHub");
             });
         }

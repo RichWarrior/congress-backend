@@ -19,7 +19,7 @@ namespace Congress.Api.Controllers
         /// Meslek Dallarını Geri Döndürür.
         /// </summary>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPost("GetJobs")]
         public IActionResult GetJobs()
         {
             BaseResult<JobModel> baseResult = new BaseResult<JobModel>();
