@@ -1,6 +1,7 @@
 ﻿using Congress.Api.Models;
 using Congress.Core.Entity;
 using Congress.Core.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Congress.Api.Controllers
@@ -23,6 +24,7 @@ namespace Congress.Api.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost("GetCountries")]
+        [AllowAnonymous]
         public IActionResult GetCountries()
         {
             BaseResult<RegionResult> baseResult = new BaseResult<RegionResult>();
@@ -35,6 +37,7 @@ namespace Congress.Api.Controllers
         /// <param name="model">Country Id Gereklidir.</param>
         /// <returns></returns>
         [HttpPost("GetCities")]
+        [AllowAnonymous]
         public IActionResult GetCities([FromBody]City model)
         {
             BaseResult<RegionResult> baseResult = new BaseResult<RegionResult>();

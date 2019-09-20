@@ -2,7 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 
@@ -17,9 +20,10 @@ namespace Congress.Api.Controllers
         }
 
         [NonAction]
-        public string GenerateToken(string userId,string user)
+        public string GenerateToken(string userId, string user)
         {
             var someClaims = new Claim[]{
+                new Claim(JwtRegisteredClaimNames.NameId,userId),
                 new Claim(JwtRegisteredClaimNames.UniqueName,userId),
                 new Claim("user",user)
             };
@@ -33,6 +37,18 @@ namespace Congress.Api.Controllers
 
 
             return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        [NonAction]
+        public string GetUserClaims(string key)
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            string result = "";
+            if (identity != null)
+            {
+                result = identity.FindFirst(key).Value;
+            }
+            return result;
         }
     }
 }

@@ -102,6 +102,8 @@ namespace Congress.Api
             services.AddScoped<ICity, SCity>();
             services.AddScoped<IUser, SUser>();
             services.AddScoped<IMinio, SMinio>();
+            services.AddScoped<IMenu, SMenu>();
+            services.AddScoped<ISponsor, SSponsor>();
 
             services.AddSingleton<INotificationDispatcher, NotificationDispatcher>();       
         }

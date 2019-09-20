@@ -23,6 +23,18 @@
             <param name="model">Country Id Gereklidir.</param>
             <returns></returns>
         </member>
+        <member name="M:Congress.Api.Controllers.SponsorController.NewSponsor(Congress.Core.Entity.Sponsor)">
+            <summary>
+            Sponsor Oluşturma İşlemini Yapar.
+            </summary>
+            <param name="sponsor"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Congress.Api.Controllers.SponsorController.GetSponsors">
+            <summary>
+            Sponsorları Getirir.
+            </summary>
+        </member>
         <member name="M:Congress.Api.Controllers.UserController.Register(Congress.Core.Entity.User)">
             <summary>
             Kullanıcıyı Kayıt Eder

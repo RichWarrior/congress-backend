@@ -5,6 +5,8 @@ namespace Congress.Core.Enums
     public enum enumBucketType
     {
         [EnumValue("avatars")]
-        Avatars = 1
+        Avatars = 1,
+        [EnumValue("sponsors")]
+        Sponsors = 2
     }
 }

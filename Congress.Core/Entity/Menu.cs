@@ -9,9 +9,17 @@
         /// </summary>
         public int menuTypeId { get; set; }
         /// <summary>
+        /// Kullanıcı Tipi
+        /// </summary>
+        public int userTypeId { get; set; }
+        /// <summary>
         /// Ana Menü ise 0 Değilse Ana Menü Id
         /// </summary>
         public int parentMenuId { get; set; }
+        /// <summary>
+        /// Sıralama
+        /// </summary>
+        public int priority { get; set; }
         /// <summary>
         /// Menü Adı
         /// </summary>

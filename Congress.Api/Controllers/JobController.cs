@@ -1,11 +1,12 @@
 ﻿using Congress.Api.Models;
 using Congress.Core.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Congress.Api.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
+    [ApiController]    
     public class JobController : BaseController
     {
         IJob _SJob;
@@ -20,6 +21,7 @@ namespace Congress.Api.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost("GetJobs")]
+        [AllowAnonymous]
         public IActionResult GetJobs()
         {
             BaseResult<JobModel> baseResult = new BaseResult<JobModel>();

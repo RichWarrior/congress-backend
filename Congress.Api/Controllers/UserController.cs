@@ -24,12 +24,14 @@ namespace Congress.Api.Controllers
         IUser _SUser;
         IMinio _SMinio;
         INotificationDispatcher notificationDispatcher;
+        IMenu _SMenu;
         public UserController(IMethod _SMethod,IUser _SUser,
-            IMinio _SMinio,INotificationDispatcher notificationDispatcher) 
+            IMinio _SMinio,INotificationDispatcher notificationDispatcher,IMenu _SMenu) 
             : base(_SMethod)
         {
             this._SUser = _SUser;
             this._SMinio = _SMinio;
+            this._SMenu = _SMenu;
             this.notificationDispatcher = notificationDispatcher;
         }
 
@@ -104,7 +106,7 @@ namespace Congress.Api.Controllers
         /// <returns></returns>
         [HttpPost("Login")]
         [AllowAnonymous]
-        public IActionResult Login([FromBody]User user)
+        public async Task<IActionResult> Login([FromBody]User user)
         {
             bool isSuccess = false;
             BaseResult<UserModel> baseResult = new BaseResult<UserModel>();
@@ -114,10 +116,24 @@ namespace Congress.Api.Controllers
             {
                 if(_user.statusId == 2)
                 {
-                    baseResult.data.user = _user;
-                    string jsonUser = JsonConvert.SerializeObject(_user);
-                    baseResult.data.token = GenerateToken(_user.id.ToString(),jsonUser);
-                    isSuccess = true;
+                    if(_user.emailVerification == 2)
+                    {
+                        baseResult.data.user = _user;
+                        baseResult.data.menus = _SMenu.GetUserMenu(user.loginType, _user.userTypeId);
+                        string jsonUser = JsonConvert.SerializeObject(_user);
+                        baseResult.data.token = GenerateToken(_user.id.ToString(), jsonUser);
+                        isSuccess = true;
+                    }
+                    else
+                    {
+                        baseResult.errMessage = "E-Postanızı Onaylamamışsınız! E-Posta Onaylama Maili Mail Kutunuza Tekrar Gönderildi!";
+                        baseResult.statusCode = HttpStatusCode.NotFound;
+                        EmailVerificationQueueModel emailVerificationQueueModel = new EmailVerificationQueueModel() {
+                            email = _user.email,userGuid = _user.userGuid
+                        };
+                        await notificationDispatcher.SendEmailVerification(emailVerificationQueueModel);
+                    }
+                    
                 }
                 else
                 {
