@@ -35,6 +35,27 @@
             Sponsorları Getirir.
             </summary>
         </member>
+        <member name="M:Congress.Api.Controllers.SponsorController.CheckSponsor(Congress.Core.Entity.Sponsor)">
+            <summary>
+            Sponsor Onaylamak İçin Kullanılır.
+            </summary>
+            <param name="sponsor">Güncellenecek Sponsor Modeli</param>
+            <returns></returns>
+        </member>
+        <member name="M:Congress.Api.Controllers.SponsorController.DeleteSponsor(Congress.Core.Entity.Sponsor)">
+            <summary>
+            Sponsor Silmek İçin Kullanılır.
+            </summary>
+            <param name="sponsor">Sponsor Silme Modeli</param>
+            <returns></returns>
+        </member>
+        <member name="M:Congress.Api.Controllers.SponsorController.UpdateSponsor(Congress.Core.Entity.Sponsor)">
+            <summary>
+            Sponsor Güncellemek İçin Kullanılır.
+            </summary>
+            <param name="sponsor"></param>
+            <returns></returns>
+        </member>
         <member name="M:Congress.Api.Controllers.UserController.Register(Congress.Core.Entity.User)">
             <summary>
             Kullanıcıyı Kayıt Eder

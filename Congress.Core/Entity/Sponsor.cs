@@ -11,6 +11,6 @@ namespace Congress.Core.Entity
         public string logoPath { get; set; }
 
         [Write(false)]
-        public List<IFormFile> logoFile { get; set; }
+        public List<IFormFile> logoFile { get; set; }       
     }
 }

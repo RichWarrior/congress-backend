@@ -23,7 +23,7 @@ namespace Congress.Api.Controllers
     {
         IMinio _SMinio;
         ISponsor _SSponsor;
-        public SponsorController(IMethod _SMethod,IMinio _SMinio,ISponsor _SSponsor)
+        public SponsorController(IMethod _SMethod, IMinio _SMinio, ISponsor _SSponsor)
             : base(_SMethod)
         {
             this._SMinio = _SMinio;
@@ -37,7 +37,7 @@ namespace Congress.Api.Controllers
         /// <returns></returns>
         [HttpPost("newsponsor")]
         [NotAccessUser]
-        public async Task<IActionResult>  NewSponsor([FromForm]Sponsor sponsor)
+        public async Task<IActionResult> NewSponsor([FromForm]Sponsor sponsor)
         {
             BaseResult<SponsorModel> baseResult = new BaseResult<SponsorModel>();
             bool isSuccess = false;
@@ -69,15 +69,15 @@ namespace Congress.Api.Controllers
                     baseResult.errMessage = "Sponsor Logosu Yüklenemedi!";
                     baseResult.statusCode = HttpStatusCode.NotFound;
                 }
-            }            
+            }
             if (isSuccess)
-            {              
+            {
                 return Json(baseResult);
             }
             else
             {
                 return new NotFoundObjectResult(baseResult);
-            }            
+            }
         }
 
         /// <summary>
@@ -91,7 +91,12 @@ namespace Congress.Api.Controllers
             baseResult.data.sponsors = _SSponsor.GetSponsors();
             return Json(baseResult);
         }
-        
+
+        /// <summary>
+        /// Sponsor Onaylamak İçin Kullanılır.
+        /// </summary>
+        /// <param name="sponsor">Güncellenecek Sponsor Modeli</param>
+        /// <returns></returns>
         [HttpPost("checksponsor")]
         [DoctorValidation]
         public IActionResult CheckSponsor([FromBody]Sponsor sponsor)
@@ -102,7 +107,7 @@ namespace Congress.Api.Controllers
             sponsor.statusId = 2;
             isSuccess = _SSponsor.UpdateSponsor(sponsor);
             if (isSuccess)
-            {               
+            {
                 return Json(baseResult);
             }
             else
@@ -111,7 +116,66 @@ namespace Congress.Api.Controllers
                 baseResult.statusCode = HttpStatusCode.NotFound;
                 return new NotFoundObjectResult(baseResult);
             }
-            
+
+        }
+
+        /// <summary>
+        /// Sponsor Silmek İçin Kullanılır.
+        /// </summary>
+        /// <param name="sponsor">Sponsor Silme Modeli</param>
+        /// <returns></returns>
+        [HttpPost("deletesponsor")]
+        [DoctorValidation]
+        public IActionResult DeleteSponsor([FromBody] Sponsor sponsor)
+        {
+            BaseResult<SponsorModel> baseResult = new BaseResult<SponsorModel>();
+            sponsor.statusId = 1;
+            baseResult.data.sponsor = sponsor;
+            if (_SSponsor.UpdateSponsor(sponsor))
+            {
+                return Json(baseResult);
+            }
+            else
+            {
+                baseResult.errMessage = "Sponsor Silinemedi!";
+                baseResult.statusCode = HttpStatusCode.NotFound;
+                return new NotFoundObjectResult(baseResult);
+            }
+        }
+
+        /// <summary>
+        /// Sponsor Güncellemek İçin Kullanılır.
+        /// </summary>
+        /// <param name="sponsor"></param>
+        /// <returns></returns>
+        [HttpPost("updatesponsor")]
+        [DoctorValidation]
+        public async Task<IActionResult> UpdateSponsor([FromForm]Sponsor sponsor)
+        {
+            BaseResult<SponsorModel> baseResult = new BaseResult<SponsorModel>();
+            bool isSuccess = false;            
+            if (sponsor.logoFile.Count > 0)
+            {
+                string bucketName = _SMethod.GetEnumValue(enumBucketType.Sponsors);
+                IFormFile file = sponsor.logoFile.FirstOrDefault();
+                string path = await _SMinio.UploadFile(bucketName, file);
+                if (!String.IsNullOrEmpty(path))
+                {
+                    sponsor.logoPath = path;
+                }                
+            }
+            baseResult.data.sponsor = sponsor;
+            isSuccess = _SSponsor.UpdateSponsor(sponsor);
+            if (isSuccess)
+            {
+                return Json(baseResult);
+            }
+            else
+            {
+                baseResult.errMessage = "Sponsor Güncellenemedi!";
+                baseResult.statusCode = HttpStatusCode.NotFound;
+                return new NotFoundObjectResult(baseResult);
+            }
         }
     }
 }
