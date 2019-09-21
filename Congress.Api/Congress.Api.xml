@@ -37,6 +37,19 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Congress.Api.Controllers.ParticipantController.GetParticipant">
+            <summary>
+            Tüm Katılımcı Listesini Görüntülemek İçin Kullanılır
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Congress.Api.Controllers.ParticipantController.ChangeStatus(Congress.Core.Entity.User)">
+            <summary>
+            Katılımcının Aktiflik Durumunu Değiştirir.
+            </summary>
+            <param name="user">Aktiflik Durumu Değiştirilecek Katılımcı Modeli</param>
+            <returns></returns>
+        </member>
         <member name="M:Congress.Api.Controllers.RegionController.GetCountries">
             <summary>
             Ülkeleri Geri Döndürür.

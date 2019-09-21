@@ -20,8 +20,14 @@ namespace Congress.Data.Service
 
         public List<User> GetBusiness()
         {
-            string sql = "SELECT * FROM user WHERE userTypeId = 2 AND statusId = 2";
+            string sql = "SELECT * FROM user WHERE userTypeId = 2 AND statusId = 2 ORDER BY creationDate DESC";
             return dbContext.GetByQueryAll<User>(sql, new { }).ToList();
+        }
+
+        public List<User> GetParticipant()
+        {
+            string sql = "SELECT * FROM user WHERE userTypeId = 3 ORDER BY creationDate DESC";
+            return dbContext.GetByQueryAll<User>(sql,new { }).ToList();
         }
 
         public int InsertUser(User user)

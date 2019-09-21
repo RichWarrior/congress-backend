@@ -36,5 +36,10 @@ namespace Congress.Core.Interface
         /// <param name="user">Güncellenecek Kullanıcı Modeli</param>
         /// <returns></returns>
         bool UpdateUser(User user);
+        /// <summary>
+        /// Katılımcıları Getirir.
+        /// </summary>
+        /// <returns></returns>
+        List<User> GetParticipant();
     }
 }
