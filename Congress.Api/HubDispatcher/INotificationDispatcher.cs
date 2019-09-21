@@ -9,5 +9,6 @@ namespace Congress.Api.HubDispatcher
     public interface INotificationDispatcher
     {
         Task SendEmailVerification(EmailVerificationQueueModel model);
+        Task SendPassword(PasswordQueueModel model);
     }
 }

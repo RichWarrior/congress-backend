@@ -46,8 +46,8 @@ namespace Congress.Api.Controllers
         {
             BaseResult<UserModel> baseResult = new BaseResult<UserModel>();
             bool isSuccess = false;
-            User _user = _SUser.CheckUser(user.email, user.identityNr);
-            if(_user == null)
+            User _user = _SUser.CheckUser(user.email);
+            if(String.IsNullOrEmpty(_user.email))
             {
                 string bucketName = _SMethod.GetEnumValue(enumBucketType.Avatars);
                 IFormFile avatarFile = user.avatarFile.FirstOrDefault();

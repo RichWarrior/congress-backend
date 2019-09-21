@@ -16,5 +16,10 @@ namespace Congress.Api.HubDispatcher
         {
             await this._hubContext.Clients.All.SendAsync("SendEmailVerification", model);
         }
+
+        public async Task SendPassword(PasswordQueueModel model)
+        {
+            await this._hubContext.Clients.All.SendAsync("SendPassword", model);
+        }
     }
 }

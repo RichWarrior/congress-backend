@@ -1,4 +1,5 @@
 ﻿using Congress.Core.Entity;
+using System.Collections.Generic;
 
 namespace Congress.Core.Interface
 {
@@ -10,7 +11,7 @@ namespace Congress.Core.Interface
         /// <param name="email">E-Posta Adresi</param>
         /// <param name="identityNr">Pasaport veya T.C No</param>
         /// <returns></returns>
-        User CheckUser(string email,string identityNr);
+        User CheckUser(string email);
         /// <summary>
         /// Kullanıcı Eklemek İçin Kullanılır.
         /// </summary>
@@ -24,5 +25,16 @@ namespace Congress.Core.Interface
         /// <param name="password">Şifre</param>
         /// <returns></returns>
         User Login(string email, string password);
+        /// <summary>
+        /// Firmaları Getirir.
+        /// </summary>
+        /// <returns></returns>
+        List<User> GetBusiness();
+        /// <summary>
+        /// Kullanıcı Güncellemek İçin Kullanılır.
+        /// </summary>
+        /// <param name="user">Güncellenecek Kullanıcı Modeli</param>
+        /// <returns></returns>
+        bool UpdateUser(User user);
     }
 }

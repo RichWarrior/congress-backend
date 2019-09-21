@@ -7,6 +7,8 @@ namespace Congress.Core.Enums
         [EnumValue("1")]
         Erkek = 1,
         [EnumValue("2")]
-        Kadın = 2
+        Kadın = 2,
+        [EnumValue("3")]
+        Belirtilmemiş = 3
     }
 }

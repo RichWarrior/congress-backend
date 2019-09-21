@@ -1,4 +1,6 @@
-﻿using Congress.Core.Entity;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Congress.Core.Entity;
 using Congress.Core.Interface;
 
 namespace Congress.Data.Service
@@ -10,10 +12,16 @@ namespace Congress.Data.Service
         {
             this.dbContext = dbContext;
         }
-        public User CheckUser(string email, string identityNr)
+        public User CheckUser(string email)
         {
             string sql = "SELECT * FROM user WHERE (email = @email OR identityNr = @identityNr) AND statusId =2";
-            return dbContext.GetByQuery<User>(sql, new { email = email, identityNr = identityNr });
+            return dbContext.GetByQuery<User>(sql, new { email = email });
+        }
+
+        public List<User> GetBusiness()
+        {
+            string sql = "SELECT * FROM user WHERE userTypeId = 2 AND statusId = 2";
+            return dbContext.GetByQueryAll<User>(sql, new { }).ToList();
         }
 
         public int InsertUser(User user)
@@ -25,6 +33,11 @@ namespace Congress.Data.Service
         {
             string sql = @"SELECT * FROM user WHERE email = @email AND password = @password";
             return dbContext.GetByQuery<User>(sql, new { email = email, password = password });
+        }
+
+        public bool UpdateUser(User user)
+        {
+            return dbContext.Update(user);
         }
     }
 }

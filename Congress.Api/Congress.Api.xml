@@ -4,6 +4,33 @@
         <name>Congress.Api</name>
     </assembly>
     <members>
+        <member name="M:Congress.Api.Controllers.BusinessController.NewBusiness(Congress.Core.Entity.User)">
+            <summary>
+            Firma Oluşturmak İçin Kullanılır.
+            </summary>
+            <param name="user">Firma Modeli</param>
+            <returns></returns>
+        </member>
+        <member name="M:Congress.Api.Controllers.BusinessController.GetBusiness">
+            <summary>
+            Firmaları Getirmek İçin Kullanılır.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Congress.Api.Controllers.BusinessController.UpdateBusiness(Congress.Core.Entity.User)">
+            <summary>
+            Firmaları Güncellemek İçin Kullanılır
+            </summary>
+            <param name="user"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Congress.Api.Controllers.BusinessController.DeleteBusiness(Congress.Core.Entity.User)">
+            <summary>
+            Firma Silmek İçin Kullanılır.
+            </summary>
+            <param name="user">Silinecek Firma Modeli</param>
+            <returns></returns>
+        </member>
         <member name="M:Congress.Api.Controllers.JobController.GetJobs">
             <summary>
             Meslek Dallarını Geri Döndürür.

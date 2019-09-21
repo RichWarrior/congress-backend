@@ -40,6 +40,8 @@ namespace Congress.Api.Controllers
         public async Task<IActionResult> NewSponsor([FromForm]Sponsor sponsor)
         {
             BaseResult<SponsorModel> baseResult = new BaseResult<SponsorModel>();
+            int userId = Convert.ToInt32(HttpContext.User.Identity.Name);
+            sponsor.creatorId = userId;
             bool isSuccess = false;
             string user = GetUserClaims("user");
             if (!String.IsNullOrEmpty(user))
@@ -154,7 +156,7 @@ namespace Congress.Api.Controllers
         {
             BaseResult<SponsorModel> baseResult = new BaseResult<SponsorModel>();
             bool isSuccess = false;            
-            if (sponsor.logoFile.Count > 0)
+            if (sponsor.logoFile!=null && sponsor.logoFile.Count > 0)
             {
                 string bucketName = _SMethod.GetEnumValue(enumBucketType.Sponsors);
                 IFormFile file = sponsor.logoFile.FirstOrDefault();
