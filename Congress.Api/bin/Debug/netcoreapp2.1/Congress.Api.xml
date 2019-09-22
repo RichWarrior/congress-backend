@@ -110,5 +110,12 @@
             <param name="user">E-Posta Adresi ve Şifre Yeterlidir</param>
             <returns></returns>
         </member>
+        <member name="M:Congress.Api.Controllers.UserController.UpdateUser(Congress.Core.Entity.User)">
+            <summary>
+            Kullanıcı Bilgilerini Güncellemek İçin Kullanılır. (Sadece Kendi Bilgilerinizi Günceller)
+            </summary>
+            <param name="user"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

@@ -19,6 +19,7 @@ namespace Congress.Api.Controllers
 {
     [Route("api/user")]
     [ApiController]
+    [Authorize]
     public class UserController : BaseController
     {
         IUser _SUser;
@@ -155,5 +156,60 @@ namespace Congress.Api.Controllers
                 return new NotFoundObjectResult(baseResult);
             }
         }               
+        /// <summary>
+        /// Kullanıcı Bilgilerini Güncellemek İçin Kullanılır. (Sadece Kendi Bilgilerinizi Günceller)
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        [HttpPost("UpdateUser")]
+        public async Task<IActionResult> UpdateUser([FromForm] User user)
+        {
+            BaseResult<UserModel> baseResult = new BaseResult<UserModel>();
+            bool isSuccess = false;
+            int userId = Convert.ToInt32(HttpContext.User.Identity.Name);
+            if(userId == user.id)
+            {
+                User _user = _SUser.GetById(user.id);
+                user.profileStatus = 2;
+                if(_user.password != user.password)
+                {
+                    user.password = _SMethod.StringToMd5(user.password);
+                }
+                if (user.avatarFile!=null && user.avatarFile.Count>0)
+                {
+                    string bucketName = _SMethod.GetEnumValue(enumBucketType.Avatars);
+                    IFormFile formFile = user.avatarFile.FirstOrDefault();
+                    string path = await _SMinio.UploadFile(bucketName, formFile);
+                    if (!String.IsNullOrEmpty(path))
+                    {
+                        user.avatarPath = path;
+                    }
+                    else
+                    {
+                        baseResult.errMessage = "Profil Resminiz Güncellenemedi!";
+                    }
+                }
+                isSuccess = _SUser.UpdateUser(user);
+                baseResult.data.user = user;
+                if (!isSuccess)
+                {
+                    baseResult.errMessage = "Bilgileriniz Güncellenemedi!";
+                }
+            }
+            else
+            {
+                baseResult.errMessage = "Sadece Kendi Bilgilerinizi Değiştirebilirsiniz!";
+                isSuccess = false;
+            }
+            if (isSuccess)
+            {
+                return Json(baseResult);
+            }
+            else
+            {                
+                baseResult.statusCode = HttpStatusCode.NotFound;
+                return new NotFoundObjectResult(baseResult);
+            }
+        }
     }
 }

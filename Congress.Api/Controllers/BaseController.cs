@@ -31,7 +31,7 @@ namespace Congress.Api.Controllers
             SecurityKey securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("CongressBackendApi"));
             var token = new JwtSecurityToken(
                 claims: someClaims,
-                expires: DateTime.Now.AddHours(3),
+                expires: DateTime.Now.AddDays(30),
                 signingCredentials: new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256)
             );
 

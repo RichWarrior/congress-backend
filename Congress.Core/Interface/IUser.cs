@@ -41,5 +41,11 @@ namespace Congress.Core.Interface
         /// </summary>
         /// <returns></returns>
         List<User> GetParticipant();
+        /// <summary>
+        /// Id Değerine Göre Kullanıcıyı Getirir.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        User GetById(int id);
     }
 }

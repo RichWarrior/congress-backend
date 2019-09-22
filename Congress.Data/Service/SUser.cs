@@ -24,6 +24,11 @@ namespace Congress.Data.Service
             return dbContext.GetByQueryAll<User>(sql, new { }).ToList();
         }
 
+        public User GetById(int id)
+        {
+            return dbContext.GetById<User>(id);
+        }
+
         public List<User> GetParticipant()
         {
             string sql = "SELECT * FROM user WHERE userTypeId = 3 ORDER BY creationDate DESC";
