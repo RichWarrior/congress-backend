@@ -31,6 +31,31 @@
             <param name="user">Silinecek Firma Modeli</param>
             <returns></returns>
         </member>
+        <member name="M:Congress.Api.Controllers.EventController.NewEvent(Congress.Core.Entity.Event)">
+            <summary>
+            Etkinlik Oluşturmak İçin Kullanılır.
+            </summary>
+            <param name="_event"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Congress.Api.Controllers.EventController.GetEvents">
+            <summary>
+            Kullanıcıya Ait Etkinlikleri Getirir
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Congress.Api.Controllers.EventController.DeleteEvent(Congress.Core.Entity.Event)">
+            <summary>
+            Etkinlik Silme İşlemleri İçin Kullanılır.
+            </summary>
+            <param name="_event">Silinecek Etkinlik Modeli</param>
+            <returns></returns>
+        </member>
+        <member name="M:Congress.Api.Controllers.EventController.GetEventById(Congress.Core.Entity.Event)">
+            <summary>
+            İstenilen Id Değerine Göre Etkinlik Bilgilerini Döndürür
+            </summary>
+        </member>
         <member name="M:Congress.Api.Controllers.JobController.GetJobs">
             <summary>
             Meslek Dallarını Geri Döndürür.

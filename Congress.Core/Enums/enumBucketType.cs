@@ -7,6 +7,8 @@ namespace Congress.Core.Enums
         [EnumValue("avatars")]
         Avatars = 1,
         [EnumValue("sponsors")]
-        Sponsors = 2
+        Sponsors = 2,
+        [EnumValue("events")]
+        Events = 3,
     }
 }
