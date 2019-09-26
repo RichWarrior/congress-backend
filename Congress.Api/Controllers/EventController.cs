@@ -24,7 +24,7 @@ namespace Congress.Api.Controllers
         IEventDetail _SEventDetail;
         public EventController(IMethod _SMethod,
             IEvent _SEvent, IMinio _SMinio,
-            IUser _SUser,IEventDetail _SEventDetail)
+            IUser _SUser, IEventDetail _SEventDetail)
             : base(_SMethod)
         {
             this._SEvent = _SEvent;
@@ -160,7 +160,11 @@ namespace Congress.Api.Controllers
                 return new NotFoundObjectResult(baseResult);
             }
         }
-
+        /// <summary>
+        /// Etkinlik Güncellemek İçin Kullanılır
+        /// </summary>
+        /// <param name="_event"></param>
+        /// <returns></returns>
         [HttpPost("updatevent")]
         [BusinessValidation]
         public async Task<IActionResult> UpdateEvent([FromForm]Event _event)
@@ -174,11 +178,11 @@ namespace Congress.Api.Controllers
             }
             else
             {
-                if (_event.logoFiles!=null)
+                if (_event.logoFiles != null)
                 {
                     string bucketName = _SMethod.GetEnumValue(enumBucketType.Events);
                     IFormFile formFile = _event.logoFiles.FirstOrDefault();
-                    string path = await _SMinio.UploadFile(bucketName,formFile);
+                    string path = await _SMinio.UploadFile(bucketName, formFile);
                     if (!String.IsNullOrEmpty(path))
                     {
                         _event.logoPath = path;
@@ -198,7 +202,156 @@ namespace Congress.Api.Controllers
             {
                 baseResult.statusCode = HttpStatusCode.NotFound;
                 return new NotFoundObjectResult(baseResult);
+            }
+        }
+        /// <summary>
+        /// Yeni Etkinlik Detayı Eklemek İçin Kullanılır
+        /// </summary>
+        /// <param name="eventDetail"></param>
+        /// <returns></returns>
+        [HttpPost("neweventdetail")]
+        [BusinessValidation]
+        public IActionResult NewEventDetail([FromBody]EventDetail eventDetail)
+        {
+            BaseResult<EventModel> baseResult = new BaseResult<EventModel>();
+            Event _event = _SEvent.GetById(eventDetail.eventId);
+            int userId = Convert.ToInt32(HttpContext.User.Identity.Name);
+            bool isSuccess = false;
+            if (_event.userId != userId)
+            {
+                baseResult.errMessage = "Kendinize Ait Olmayan Bir Etkinliğe Müdahale Edemezsiniz!";
+            }
+            else
+            {
+                eventDetail.id = _SEventDetail.InsertEventDetail(eventDetail);
+                if (eventDetail.id > 0)
+                {
+                    baseResult.data.eventDetail = eventDetail;
+                    isSuccess = true;
+                }
+                else
+                {
+                    baseResult.errMessage = "Konuşmacı Eklenemedi!";
+                }
+            }
+            if (isSuccess)
+            {
+                return Json(baseResult);
+            }
+            else
+            {
+                baseResult.statusCode = HttpStatusCode.NotFound;
+                return new NotFoundObjectResult(baseResult);
+            }
+        }
+        /// <summary>
+        /// Etkinlik Detaylarını Görüntülemek İçin Kullanılır
+        /// </summary>
+        /// <param name="_event"></param>
+        /// <returns></returns>
+        [HttpPost("geteventdetail")]
+        [BusinessValidation]
+        public IActionResult GetEventDetail([FromBody]Event _event)
+        {
+            BaseResult<EventModel> baseResult = new BaseResult<EventModel>();
+            bool isSuccess = false;
+            int userId = Convert.ToInt32(HttpContext.User.Identity.Name);
+            if(userId != _event.userId)
+            {
+                baseResult.errMessage = "Kendinize Ait Olmayan Bir Etkinlikle İlgili İşlem Yapamazsınız!";
+            }
+            else
+            {
+                baseResult.data.eventDetails = _SEventDetail.GetEventDetails(_event.id);
+                isSuccess = true;
+            }
+            if (isSuccess)
+            {
+                return Json(baseResult);
+            }
+            else
+            {
+                baseResult.statusCode = HttpStatusCode.NotFound;
+                return new NotFoundObjectResult(baseResult);
             }            
+        }
+        /// <summary>
+        /// Etkinlik Detayı Silmek İçin Kullanılır.
+        /// </summary>
+        /// <param name="eventDetail"></param>
+        /// <returns></returns>
+        [HttpPost("deleteeventdetail")]
+        [BusinessValidation]
+        public IActionResult DeleteEventDetail([FromBody]EventDetail eventDetail)
+        {
+            BaseResult<EventModel> baseResult = new BaseResult<EventModel>();
+            bool isSuccess = false;
+            int userId = Convert.ToInt32(HttpContext.User.Identity.Name);
+            Event _event = _SEvent.GetById(eventDetail.eventId);
+            if(_event.userId != userId)
+            {
+                baseResult.errMessage = "Kendi Etkinlikleriniz Dışındakilere Müdahale Edemezsiniz!";
+            }
+            else
+            {
+                eventDetail.statusId = 1;
+                if (_SEventDetail.UpdateEventDetail(eventDetail))
+                {
+                    isSuccess = true;
+                }
+                else
+                {
+                    baseResult.errMessage = "Konuşmacı Silinemedi!";
+                }
+            }
+            if (isSuccess)
+            {
+                return Json(baseResult);
+            }
+            else
+            {
+                baseResult.statusCode = HttpStatusCode.NotFound;
+                return new NotFoundObjectResult(baseResult);
+            }
+        }
+        /// <summary>
+        /// Etkinlik Detayı Güncellemek İçin Kullanılır
+        /// </summary>
+        /// <param name="eventDetail"></param>
+        /// <returns></returns>
+        [HttpPost("updateeventdetail")]
+        [BusinessValidation]
+        public IActionResult UpdateEventDetail([FromBody]EventDetail eventDetail)
+        {
+            BaseResult<EventModel> baseResult = new BaseResult<EventModel>();
+            bool isSuccess = false;
+            Event _event = _SEvent.GetById(eventDetail.eventId);
+            int userId = Convert.ToInt32(HttpContext.User.Identity.Name);
+            if (_event.userId != userId)
+            {
+                baseResult.errMessage = "Sadece Kendine Ait Bir Etkinliğe Müdahale Edebilirsiniz!";
+            }
+            else
+            {
+                if (_SEventDetail.UpdateEventDetail(eventDetail))
+                {
+                    isSuccess = true;
+                    baseResult.data.eventDetail = eventDetail;
+                }
+                else
+                {
+                    baseResult.errMessage = "Konuşmacı Bilgileri Güncellenemedi!";
+                }
+            }
+            if (isSuccess)
+            {
+                return Json(baseResult);
+            }
+            else
+            {
+                baseResult.statusCode = HttpStatusCode.NotFound;
+                return new NotFoundObjectResult(baseResult);
+            }
         }
     }
 }

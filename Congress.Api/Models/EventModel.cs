@@ -6,6 +6,8 @@ namespace Congress.Api.Models
     public class EventModel
     {
         public Event cgevent{ get; set; }
-        public List<Event>events{ get; set; }        
+        public List<Event>events{ get; set; }
+        public EventDetail eventDetail { get; set; }
+        public List<EventDetail> eventDetails { get; set; }
     }
 }

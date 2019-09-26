@@ -42,6 +42,7 @@ namespace Congress.PushNotification
         {
             if (!Monitor.TryEnter(state))
                 return;
+            Monitor.Exit(state);
         }
     }
 }

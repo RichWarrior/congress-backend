@@ -27,7 +27,7 @@ namespace Congress.Data.Service
         public int Insert(Event _event)
         {
             return dbContext.Insert(_event);
-        }
+        }        
 
         public bool UpdateEvent(Event _event)
         {

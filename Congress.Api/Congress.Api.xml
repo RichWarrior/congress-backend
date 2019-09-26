@@ -56,6 +56,41 @@
             İstenilen Id Değerine Göre Etkinlik Bilgilerini Döndürür
             </summary>
         </member>
+        <member name="M:Congress.Api.Controllers.EventController.UpdateEvent(Congress.Core.Entity.Event)">
+            <summary>
+            Etkinlik Güncellemek İçin Kullanılır
+            </summary>
+            <param name="_event"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Congress.Api.Controllers.EventController.NewEventDetail(Congress.Core.Entity.EventDetail)">
+            <summary>
+            Yeni Etkinlik Detayı Eklemek İçin Kullanılır
+            </summary>
+            <param name="eventDetail"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Congress.Api.Controllers.EventController.GetEventDetail(Congress.Core.Entity.Event)">
+            <summary>
+            Etkinlik Detaylarını Görüntülemek İçin Kullanılır
+            </summary>
+            <param name="_event"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Congress.Api.Controllers.EventController.DeleteEventDetail(Congress.Core.Entity.EventDetail)">
+            <summary>
+            Etkinlik Detayı Silmek İçin Kullanılır.
+            </summary>
+            <param name="eventDetail"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Congress.Api.Controllers.EventController.UpdateEventDetail(Congress.Core.Entity.EventDetail)">
+            <summary>
+            Etkinlik Detayı Güncellemek İçin Kullanılır
+            </summary>
+            <param name="eventDetail"></param>
+            <returns></returns>
+        </member>
         <member name="M:Congress.Api.Controllers.JobController.GetJobs">
             <summary>
             Meslek Dallarını Geri Döndürür.
