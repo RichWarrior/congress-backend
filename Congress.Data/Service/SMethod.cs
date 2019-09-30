@@ -2,6 +2,7 @@
 using Congress.Core.Tags;
 using System;
 using System.Linq;
+using System.Net.Mail;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
@@ -33,6 +34,20 @@ namespace Congress.Data.Service
                   enumValueMemberInfo.GetCustomAttributes(typeof(EnumValue), false);
             _rtn = ((EnumValue)valueAttributes[0]).value;
             return _rtn;
+        }
+
+        public bool ValidateEmail(string email)
+        {
+            bool rtn = false;
+            try
+            {
+                var addr = new MailAddress(email);
+                rtn = addr.Address == email;
+            }
+            catch (Exception)
+            {
+            }
+            return rtn;
         }
     }
 }

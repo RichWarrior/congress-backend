@@ -12,10 +12,22 @@ namespace Congress.Data.Service
         {
             this.dbContext = dbContext;
         }
+
+        public bool BulkUserInsert(List<User> users)
+        {
+            return dbContext.BulkInsert<User>(users);
+        }
+
         public User CheckUser(string email)
         {
             string sql = "SELECT * FROM user WHERE (email = @email OR identityNr = @identityNr) AND statusId =2";
             return dbContext.GetByQuery<User>(sql, new { email = email });
+        }
+
+        public List<User> GetAllUser()
+        {
+            string sql = "SELECT * FROM user WHERE userTypeId = 3 AND statusId = 2";
+            return dbContext.GetByQueryAll<User>(sql, new { }).ToList();
         }
 
         public List<User> GetBusiness()

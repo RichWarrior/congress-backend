@@ -11,7 +11,8 @@ namespace Congress.Data.Data
 {
     public class DbContext : IDbContext
     {
-        Connection connection = new Connection();
+        Connection connection = new Connection();       
+
         public bool Delete<T>(T entity) where T : class, new()
         {
             bool result = true;
@@ -160,6 +161,27 @@ namespace Congress.Data.Data
                 Debug.WriteLine(ex.Message);
             }
             return false;
+        }
+        public bool BulkInsert<T>(List<T> item) where T : class, new()
+        {
+            bool rtn = false;
+            try
+            {
+                using (var con = new MySqlConnection(connection.mysqlCongress))
+                {
+                    con.Open();
+                    foreach (var entity in item)
+                    {
+                        con.Insert(entity);
+                    }
+                    rtn = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            return rtn;
         }
     }
 }

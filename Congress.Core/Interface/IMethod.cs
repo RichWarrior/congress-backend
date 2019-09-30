@@ -16,5 +16,6 @@ namespace Congress.Core.Interface
         /// <param name="_enum">Enum Değeri</param>
         /// <returns></returns>
         string GetEnumValue(Enum _enum);
+        bool ValidateEmail(string email);
     }
 }

@@ -91,6 +91,39 @@
             <param name="eventDetail"></param>
             <returns></returns>
         </member>
+        <member name="M:Congress.Api.Controllers.EventController.GetAvailableParticipant(Congress.Core.Entity.Event)">
+            <summary>
+            İlgili Bir Etkinliğe Katılmayan Kullanıcıları Getirir.
+            </summary>
+        </member>
+        <member name="M:Congress.Api.Controllers.EventController.NewParticipant(System.Collections.Generic.List{Congress.Core.Entity.EventParticipant})">
+            <summary>
+            Katılımcı Ekleme İşlemleri İçin Kullanılır.
+            </summary>
+            <param name="eventParticipants">Katılımcı Listesi</param>
+            <returns></returns>
+        </member>
+        <member name="M:Congress.Api.Controllers.EventController.GetEventParticipants(Congress.Core.Entity.Event)">
+            <summary>
+            Etkinlikle İlgili Katılımcıları Listelemek İçin Kullanılır.
+            </summary>
+            <param name="_event"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Congress.Api.Controllers.EventController.DeleteEventParticipant(Congress.Core.Entity.EventParticipant)">
+            <summary>
+            Katılımcı Silme İşlemleri İçin Kullanılır.
+            </summary>
+            <param name="eventParticipant"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Congress.Api.Controllers.EventController.ImportEventParticipants(Congress.Core.Entity.EventParticipant)">
+            <summary>
+            Katılımcı İmport Etmek İçin Kullanılır
+            </summary>
+            <param name="eventParticipant"></param>
+            <returns></returns>
+        </member>
         <member name="M:Congress.Api.Controllers.JobController.GetJobs">
             <summary>
             Meslek Dallarını Geri Döndürür.

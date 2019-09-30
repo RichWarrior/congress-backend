@@ -47,5 +47,11 @@ namespace Congress.Core.Interface
         /// <param name="id"></param>
         /// <returns></returns>
         User GetById(int id);
+        /// <summary>
+        /// Aktif Olan Tüm Kullanıcıları Getirir.
+        /// </summary>
+        /// <returns></returns>
+        List<User> GetAllUser();
+        bool BulkUserInsert(List<User> users);
     }
 }

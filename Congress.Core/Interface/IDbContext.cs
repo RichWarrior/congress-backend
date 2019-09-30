@@ -69,11 +69,7 @@ namespace Congress.Core.Interface
         /// <param name="id">Entity Id</param>
         /// <returns></returns>
         bool Delete<T>(object id) where T : class, new();
-        /// <summary>
-        /// Veritabanına Çoklu Ekleme İşlemi Yapar
-        /// </summary>
-        /// <typeparam name="T">Entity</typeparam>
-        /// <param name="entities">Eklenecek Modeller</param>
-        /// <returns></returns>
+
+        bool BulkInsert<T>(List<T> item) where T : class, new();
     }
 }

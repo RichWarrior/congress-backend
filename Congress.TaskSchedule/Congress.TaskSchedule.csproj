@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Congress.Core\Congress.Core.csproj" />
+    <ProjectReference Include="..\Congress.Data\Congress.Data.csproj" />
+  </ItemGroup>
+
+</Project>
