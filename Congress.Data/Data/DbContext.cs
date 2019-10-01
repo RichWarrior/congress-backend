@@ -183,5 +183,27 @@ namespace Congress.Data.Data
             }
             return rtn;
         }
+
+        public bool BulkUpdate<T>(List<T> items) where T : class, new()
+        {
+            bool _rtn = false;
+            try
+            {
+                using (MySqlConnection con = new MySqlConnection(connection.mysqlCongress))
+                {
+                    con.Open();
+                    foreach (var item in items)
+                    {
+                        con.Update(item);
+                    }
+                    _rtn = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            return _rtn;
+        }
     }
 }

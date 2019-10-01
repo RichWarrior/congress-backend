@@ -106,6 +106,10 @@ namespace Congress.Api.Controllers
             BaseResult<EventModel> baseResult = new BaseResult<EventModel>();
             int userId = Convert.ToInt32(HttpContext.User.Identity.Name);
             baseResult.data.events = _SEvent.GetEvents(userId);
+            foreach (var item in baseResult.data.events)
+            {
+                item.isCompleted = item.startDate < DateTime.Now ? 2 : 1;
+            }
             return Json(baseResult);
         }
 

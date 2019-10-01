@@ -19,5 +19,8 @@ namespace Congress.Core.Entity
         
         [Write(false)]
         public List<IFormFile> logoFiles { get; set; }
+
+        [Write(false)]
+        public int isCompleted { get; set; }
     }
 }

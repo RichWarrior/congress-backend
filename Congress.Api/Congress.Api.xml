@@ -31,6 +31,39 @@
             <param name="user">Silinecek Firma Modeli</param>
             <returns></returns>
         </member>
+        <member name="M:Congress.Api.Controllers.CategoryController.GetCategories">
+            <summary>
+            Bütün Kategorileri Getirir.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Congress.Api.Controllers.CategoryController.DeleteCategory(Congress.Core.Entity.Category)">
+            <summary>
+            Kategori Silme İşlemleri İçin Kullanılır
+            </summary>
+            <param name="category"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Congress.Api.Controllers.CategoryController.GetMainCategory">
+            <summary>
+            Ana Kategorileri Getirir.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Congress.Api.Controllers.CategoryController.NewCategory(Congress.Core.Entity.Category)">
+            <summary>
+            Yeni Kategori Oluşturmak İçin Kullanılır
+            </summary>
+            <param name="category"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Congress.Api.Controllers.CategoryController.UpdateCategory(Congress.Core.Entity.Category)">
+            <summary>
+            Kategori Güncellemek İçin Kullanılır.
+            </summary>
+            <param name="category"></param>
+            <returns></returns>
+        </member>
         <member name="M:Congress.Api.Controllers.EventController.NewEvent(Congress.Core.Entity.Event)">
             <summary>
             Etkinlik Oluşturmak İçin Kullanılır.

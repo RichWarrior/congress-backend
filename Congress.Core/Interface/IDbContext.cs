@@ -69,7 +69,14 @@ namespace Congress.Core.Interface
         /// <param name="id">Entity Id</param>
         /// <returns></returns>
         bool Delete<T>(object id) where T : class, new();
-
+        /// <summary>
+        /// Çoklu Insert İçin Kullanılır.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="item"></param>
+        /// <returns></returns>
         bool BulkInsert<T>(List<T> item) where T : class, new();
+
+        bool BulkUpdate<T>(List<T> items) where T : class, new();
     }
 }
