@@ -52,6 +52,11 @@ namespace Congress.Core.Interface
         /// </summary>
         /// <returns></returns>
         List<User> GetAllUser();
+        /// <summary>
+        /// Çoklu Kullanıcı Oluşturma
+        /// </summary>
+        /// <param name="users"></param>
+        /// <returns></returns>
         bool BulkUserInsert(List<User> users);
     }
 }

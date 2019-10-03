@@ -4,7 +4,6 @@ C:\Projects\congress-backend\Congress.Core\bin\Release\netstandard2.0\Congress.C
 C:\Projects\congress-backend\Congress.Core\bin\Release\netstandard2.0\Microsoft.AspNetCore.Http.Features.dll
 C:\Projects\congress-backend\Congress.Core\bin\Release\netstandard2.0\Microsoft.AspNetCore.Http.Features.xml
 C:\Projects\congress-backend\Congress.Core\obj\Release\netstandard2.0\Congress.Core.csprojAssemblyReference.cache
-C:\Projects\congress-backend\Congress.Core\obj\Release\netstandard2.0\Congress.Core.csproj.CoreCompileInputs.cache
 C:\Projects\congress-backend\Congress.Core\obj\Release\netstandard2.0\Congress.Core.AssemblyInfoInputs.cache
 C:\Projects\congress-backend\Congress.Core\obj\Release\netstandard2.0\Congress.Core.AssemblyInfo.cs
 C:\Projects\congress-backend\Congress.Core\obj\Release\netstandard2.0\Congress.Core.csproj.CopyComplete

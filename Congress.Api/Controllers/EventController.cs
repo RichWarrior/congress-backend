@@ -29,10 +29,13 @@ namespace Congress.Api.Controllers
         IUser _SUser;
         IEventDetail _SEventDetail;
         IEventParticipant _SEventParticipant;
+        IEventCategory _SEventCategory;
+        ICategory _SCategory;
         INotificationDispatcher notificationDispatcher;
         public EventController(IMethod _SMethod,
             IEvent _SEvent, IMinio _SMinio,
             IUser _SUser, IEventDetail _SEventDetail, IEventParticipant _SEventParticipant,
+            IEventCategory _SEventCategory, ICategory _SCategory,
             INotificationDispatcher notificationDispatcher
             )
             : base(_SMethod)
@@ -42,6 +45,8 @@ namespace Congress.Api.Controllers
             this._SUser = _SUser;
             this._SEventDetail = _SEventDetail;
             this._SEventParticipant = _SEventParticipant;
+            this._SEventCategory = _SEventCategory;
+            this._SCategory = _SCategory;
             this.notificationDispatcher = notificationDispatcher;
         }
 
@@ -108,7 +113,7 @@ namespace Congress.Api.Controllers
             baseResult.data.events = _SEvent.GetEvents(userId);
             foreach (var item in baseResult.data.events)
             {
-                item.isCompleted = item.startDate < DateTime.Now ? 2 : 1;
+                item.isCompleted = item.endDate < DateTime.Now ? 2 : 1;
             }
             return Json(baseResult);
         }
@@ -378,7 +383,7 @@ namespace Congress.Api.Controllers
         public IActionResult GetAvailableParticipant([FromBody]Event _event)
         {
             BaseResult<UserModel> baseResult = new BaseResult<UserModel>();
-            baseResult.data.users = _SEventParticipant.EventNotInUser(_event.id); 
+            baseResult.data.users = _SEventParticipant.EventNotInUser(_event.id);
             return Json(baseResult);
         }
         /// <summary>
@@ -424,7 +429,7 @@ namespace Congress.Api.Controllers
             {
                 baseResult.statusCode = HttpStatusCode.NotFound;
                 return new NotFoundObjectResult(baseResult);
-            }            
+            }
         }
         /// <summary>
         /// Etkinlikle İlgili Katılımcıları Listelemek İçin Kullanılır.
@@ -452,9 +457,9 @@ namespace Congress.Api.Controllers
             bool isSuccess = false;
             int userId = Convert.ToInt32(HttpContext.User.Identity.Name);
             Event _event = _SEvent.GetById(eventParticipant.eventId);
-            if(userId== _event.userId)
+            if (userId == _event.userId)
             {
-                if (_SEventParticipant.DeleteEventParticipant(eventParticipant.eventId,eventParticipant.userId))
+                if (_SEventParticipant.DeleteEventParticipant(eventParticipant.eventId, eventParticipant.userId))
                 {
                     isSuccess = true;
                 }
@@ -475,7 +480,7 @@ namespace Congress.Api.Controllers
             {
                 baseResult.statusCode = HttpStatusCode.NotFound;
                 return new NotFoundObjectResult(baseResult);
-            }          
+            }
         }
         /// <summary>
         /// Katılımcı İmport Etmek İçin Kullanılır
@@ -517,7 +522,7 @@ namespace Congress.Api.Controllers
                                 {
                                     _password += guid[i];
                                 }
-                                
+
                                 _user.email = emailAddress.ToString();
                                 _user.name = _user.surname = "";
                                 _user.avatarPath = "";
@@ -549,8 +554,8 @@ namespace Congress.Api.Controllers
                             eventId = eventParticipant.eventId,
                             userId = userId,
                             creatorId = id,
-                             creationDate = DateTime.Now,
-                             statusId = 2
+                            creationDate = DateTime.Now,
+                            statusId = 2
                         });
                         string _password = "";
                         hashedValue.TryGetValue(item.email, out _password);
@@ -588,6 +593,121 @@ namespace Congress.Api.Controllers
                     isSuccess = _SEventParticipant.BulkInsertParticipants(rels);
                     baseResult.data.users = participants;
                 }
+            }
+            if (isSuccess)
+            {
+                return Json(baseResult);
+            }
+            else
+            {
+                baseResult.statusCode = HttpStatusCode.NotFound;
+                return new NotFoundObjectResult(baseResult);
+            }
+        }
+        /// <summary>
+        /// Bu Etkinliğe Tanımlanabilecek Alt Kategorileri Getirir.
+        /// </summary>
+        /// <param name="eventModel"></param>
+        /// <returns></returns>
+        [HttpPost("getavailablecategories")]
+        [BusinessValidation]
+        public IActionResult GetAvailableCategories([FromBody]EventModel eventModel)
+        {
+            BaseResult<EventModel> baseResult = new BaseResult<EventModel>();
+            baseResult.data.eventCategories = _SCategory.GetEventAvailableCategories(eventModel.cgevent.id, eventModel.category.id);
+            return Json(baseResult);
+        }
+        /// <summary>
+        /// Etkinliğe Yeni Kategoriler Tanımlamak İçin Kullanılır.
+        /// </summary>
+        /// <param name="eventCategories"></param>
+        /// <returns></returns>
+        [HttpPost("neweventcategories")]
+        [BusinessValidation]
+        public IActionResult NewEventCategories([FromBody]List<EventCategory> eventCategories)
+        {
+            BaseResult<EventModel> baseResult = new BaseResult<EventModel>();
+            bool isSuccess = false;
+            if (eventCategories.Count > 0)
+            {
+                int eventId = eventCategories.FirstOrDefault().eventId;
+                int userId = Convert.ToInt32(HttpContext.User.Identity.Name);
+                Event _event = _SEvent.GetById(eventId);
+                if (_event.userId == userId)
+                {
+                    foreach (var item in eventCategories)
+                    {
+                        item.creatorId = userId;
+                    }
+                    if (_SEventCategory.InsertEventCategories(eventCategories))
+                    {
+                        isSuccess = true;
+                    }
+                    else
+                    {
+                        baseResult.errMessage = "Kategoriler Tanımlanamadı!";
+                    }
+                }
+                else
+                {
+                    baseResult.errMessage = "Kendinize Ait Olmayan Bir Etkinliğe Müdahale Edemezsiniz!";
+                }
+            }
+            else
+            {
+                baseResult.errMessage = "Hiçbir Kategori Bulunamadı!";
+            }
+            if (isSuccess)
+            {
+                return Json(baseResult);
+            }
+            else
+            {
+                baseResult.statusCode = HttpStatusCode.NotFound;
+                return new NotFoundObjectResult(baseResult);
+            }
+        }
+        /// <summary>
+        /// Etkinlik Kategorilerini Getirir.
+        /// </summary>
+        /// <param name="_event"></param>
+        /// <returns></returns>
+        [HttpPost("geteventcategories")]
+        [BusinessValidation]
+        public IActionResult GetEventCategories([FromBody]Event _event)
+        {
+            BaseResult<EventModel> baseResult = new BaseResult<EventModel>();
+            baseResult.data.eventCategoriesRel = _SEventCategory.GetEventCategories(_event.id);
+            return Json(baseResult);
+        }
+        /// <summary>
+        /// Etkinliğe Tanımlı Kategoriyi Silmek İçin Kullanılır.
+        /// </summary>
+        /// <param name="eventCategory"></param>
+        /// <returns></returns>
+        [HttpPost("deleteeventcategory")]
+        [BusinessValidation]
+        public IActionResult DeleteEventCategory([FromBody]EventCategory eventCategory)
+        {
+            BaseResult<EventModel> baseResult = new BaseResult<EventModel>();
+            bool isSuccess = false;
+            Event _event = _SEvent.GetById(eventCategory.eventId);
+            int userId = Convert.ToInt32(HttpContext.User.Identity.Name);
+            if (_event.userId == userId)
+            {
+                eventCategory.statusId = 1;
+                if (!_SEventCategory.UpdateEventCategory(eventCategory))
+                {
+                    baseResult.errMessage = "Kategori Silinemedi!";
+                }
+                else
+                {
+                    isSuccess = true;
+                }
+            }
+            else
+            {
+                baseResult.errMessage = "Sadece Kendinize Ait Etkinliklere Müdahale Edebilirsiniz!";
             }
             if (isSuccess)
             {

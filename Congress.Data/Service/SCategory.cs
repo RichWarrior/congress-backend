@@ -29,6 +29,14 @@ namespace Congress.Data.Service
             return dbContext.GetByQueryAll<Category>(sql, new { }).ToList();
         }
 
+        public List<Category> GetEventAvailableCategories(int eventId, int mainMenuId)
+        {
+            string sql = @"SELECT * FROM category c WHERE c.id NOT IN 
+            (SELECT categoryId FROM eventcategory WHERE eventId = @eventId AND statusId = 2) 
+            AND c.statusId = 2 AND c.parentCategoryId = @mainMenuId";
+            return dbContext.GetByQueryAll<Category>(sql, new { eventId = eventId, mainMenuId = mainMenuId }).ToList();
+        }
+
         public List<Category> GetMainCategory()
         {
             string sql = "SELECT * FROM category WHERE parentCategoryId = 0 AND statusId = 2";

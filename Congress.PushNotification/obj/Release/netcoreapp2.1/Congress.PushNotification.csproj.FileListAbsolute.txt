@@ -8,7 +8,6 @@ C:\Projects\congress-backend\Congress.PushNotification\bin\Release\netcoreapp2.1
 C:\Projects\congress-backend\Congress.PushNotification\bin\Release\netcoreapp2.1\Congress.Data.pdb
 C:\Projects\congress-backend\Congress.PushNotification\bin\Release\netcoreapp2.1\Congress.Core.pdb
 C:\Projects\congress-backend\Congress.PushNotification\obj\Release\netcoreapp2.1\Congress.PushNotification.csprojAssemblyReference.cache
-C:\Projects\congress-backend\Congress.PushNotification\obj\Release\netcoreapp2.1\Congress.PushNotification.csproj.CoreCompileInputs.cache
 C:\Projects\congress-backend\Congress.PushNotification\obj\Release\netcoreapp2.1\Congress.PushNotification.AssemblyInfoInputs.cache
 C:\Projects\congress-backend\Congress.PushNotification\obj\Release\netcoreapp2.1\Congress.PushNotification.AssemblyInfo.cs
 C:\Projects\congress-backend\Congress.PushNotification\obj\Release\netcoreapp2.1\Congress.PushNotification.csproj.CopyComplete

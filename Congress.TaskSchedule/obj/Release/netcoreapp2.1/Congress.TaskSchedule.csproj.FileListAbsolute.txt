@@ -1,0 +1,15 @@
+C:\Projects\congress-backend\Congress.TaskSchedule\bin\Release\netcoreapp2.1\Congress.TaskSchedule.deps.json
+C:\Projects\congress-backend\Congress.TaskSchedule\bin\Release\netcoreapp2.1\Congress.TaskSchedule.runtimeconfig.json
+C:\Projects\congress-backend\Congress.TaskSchedule\bin\Release\netcoreapp2.1\Congress.TaskSchedule.runtimeconfig.dev.json
+C:\Projects\congress-backend\Congress.TaskSchedule\bin\Release\netcoreapp2.1\Congress.TaskSchedule.dll
+C:\Projects\congress-backend\Congress.TaskSchedule\bin\Release\netcoreapp2.1\Congress.TaskSchedule.pdb
+C:\Projects\congress-backend\Congress.TaskSchedule\bin\Release\netcoreapp2.1\Congress.Core.dll
+C:\Projects\congress-backend\Congress.TaskSchedule\bin\Release\netcoreapp2.1\Congress.Data.dll
+C:\Projects\congress-backend\Congress.TaskSchedule\bin\Release\netcoreapp2.1\Congress.Core.pdb
+C:\Projects\congress-backend\Congress.TaskSchedule\bin\Release\netcoreapp2.1\Congress.Data.pdb
+C:\Projects\congress-backend\Congress.TaskSchedule\obj\Release\netcoreapp2.1\Congress.TaskSchedule.csprojAssemblyReference.cache
+C:\Projects\congress-backend\Congress.TaskSchedule\obj\Release\netcoreapp2.1\Congress.TaskSchedule.AssemblyInfoInputs.cache
+C:\Projects\congress-backend\Congress.TaskSchedule\obj\Release\netcoreapp2.1\Congress.TaskSchedule.AssemblyInfo.cs
+C:\Projects\congress-backend\Congress.TaskSchedule\obj\Release\netcoreapp2.1\Congress.TaskSchedule.csproj.CopyComplete
+C:\Projects\congress-backend\Congress.TaskSchedule\obj\Release\netcoreapp2.1\Congress.TaskSchedule.dll
+C:\Projects\congress-backend\Congress.TaskSchedule\obj\Release\netcoreapp2.1\Congress.TaskSchedule.pdb

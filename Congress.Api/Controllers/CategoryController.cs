@@ -134,6 +134,6 @@ namespace Congress.Api.Controllers
                 baseResult.errMessage = "İşleminiz Tamamlanamadı!";
                 return new NotFoundObjectResult(baseResult);
             }
-        }
+        }        
     }
 }

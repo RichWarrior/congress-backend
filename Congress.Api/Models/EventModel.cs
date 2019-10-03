@@ -9,5 +9,9 @@ namespace Congress.Api.Models
         public List<Event>events{ get; set; }
         public EventDetail eventDetail { get; set; }
         public List<EventDetail> eventDetails { get; set; }
+        public List<Category> eventCategories { get; set; }
+        public Category category { get; set; }
+
+        public List<EventCategory> eventCategoriesRel { get; set; }
     }
 }

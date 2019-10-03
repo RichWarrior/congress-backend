@@ -157,6 +157,34 @@
             <param name="eventParticipant"></param>
             <returns></returns>
         </member>
+        <member name="M:Congress.Api.Controllers.EventController.GetAvailableCategories(Congress.Api.Models.EventModel)">
+            <summary>
+            Bu Etkinliğe Tanımlanabilecek Alt Kategorileri Getirir.
+            </summary>
+            <param name="eventModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Congress.Api.Controllers.EventController.NewEventCategories(System.Collections.Generic.List{Congress.Core.Entity.EventCategory})">
+            <summary>
+            Etkinliğe Yeni Kategoriler Tanımlamak İçin Kullanılır.
+            </summary>
+            <param name="eventCategories"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Congress.Api.Controllers.EventController.GetEventCategories(Congress.Core.Entity.Event)">
+            <summary>
+            Etkinlik Kategorilerini Getirir.
+            </summary>
+            <param name="_event"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Congress.Api.Controllers.EventController.DeleteEventCategory(Congress.Core.Entity.EventCategory)">
+            <summary>
+            Etkinliğe Tanımlı Kategoriyi Silmek İçin Kullanılır.
+            </summary>
+            <param name="eventCategory"></param>
+            <returns></returns>
+        </member>
         <member name="M:Congress.Api.Controllers.JobController.GetJobs">
             <summary>
             Meslek Dallarını Geri Döndürür.
