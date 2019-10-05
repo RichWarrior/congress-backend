@@ -47,7 +47,7 @@ namespace Congress.Api.Controllers
             if (!String.IsNullOrEmpty(user))
             {
                 User userObject = JsonConvert.DeserializeObject<User>(user);
-                sponsor.statusId = userObject.userTypeId == (int)enumUserType.doctor ? 2 : 1;
+                sponsor.statusId = userObject.userTypeId == (int)enumUserType.doctor ? 2 : 3;
                 string bucketName = _SMethod.GetEnumValue(enumBucketType.Sponsors);
                 IFormFile logoFile = sponsor.logoFile.FirstOrDefault();
                 string logoPath = await _SMinio.UploadFile(bucketName, logoFile);
@@ -58,6 +58,7 @@ namespace Congress.Api.Controllers
                     if (sponsor.id > 0)
                     {
                         baseResult.data.sponsor = sponsor;
+                        baseResult.errMessage = sponsor.statusId == 2 ? "Sponsor Başarıyla Eklendi!" : "Sponsor Eklendi Yönetici Onayı Beklemektedir!";
                         isSuccess = true;
                     }
                     else

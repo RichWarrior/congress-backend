@@ -22,5 +22,11 @@ namespace Congress.Core.Interface
         /// <param name="sponsor">Sponsor Modeli</param>
         /// <returns></returns>
         bool UpdateSponsor(Sponsor sponsor);
+        /// <summary>
+        /// Etkinliğe Tanımlanabilecek Sponsorları Getirir.
+        /// </summary>
+        /// <param name="eventId"></param>
+        /// <returns></returns>
+        List<Sponsor> GetEventAvailableSponsor(int eventId);
     }
 }

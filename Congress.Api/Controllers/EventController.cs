@@ -31,11 +31,14 @@ namespace Congress.Api.Controllers
         IEventParticipant _SEventParticipant;
         IEventCategory _SEventCategory;
         ICategory _SCategory;
+        IEventSponsor _SEventSponsor;
+        ISponsor _SSponsor;
         INotificationDispatcher notificationDispatcher;
         public EventController(IMethod _SMethod,
             IEvent _SEvent, IMinio _SMinio,
             IUser _SUser, IEventDetail _SEventDetail, IEventParticipant _SEventParticipant,
-            IEventCategory _SEventCategory, ICategory _SCategory,
+            IEventCategory _SEventCategory, ICategory _SCategory, IEventSponsor _SEventSponsor,
+            ISponsor _SSponsor,
             INotificationDispatcher notificationDispatcher
             )
             : base(_SMethod)
@@ -47,6 +50,8 @@ namespace Congress.Api.Controllers
             this._SEventParticipant = _SEventParticipant;
             this._SEventCategory = _SEventCategory;
             this._SCategory = _SCategory;
+            this._SEventSponsor = _SEventSponsor;
+            this._SSponsor = _SSponsor;
             this.notificationDispatcher = notificationDispatcher;
         }
 
@@ -718,6 +723,115 @@ namespace Congress.Api.Controllers
                 baseResult.statusCode = HttpStatusCode.NotFound;
                 return new NotFoundObjectResult(baseResult);
             }
+        }
+        /// <summary>
+        /// Etkinliğe Tanımlanabilecek Sponsorları Getirir.
+        /// </summary>
+        /// <param name="_event"></param>
+        /// <returns></returns>
+        [HttpPost("getavailablesponsor")]
+        [BusinessValidation]
+        public IActionResult GetAvailableSponsor([FromForm]Event _event)
+        {
+            BaseResult<EventModel> baseResult = new BaseResult<EventModel>();
+            baseResult.data.eventSponsors = _SSponsor.GetEventAvailableSponsor(_event.id);
+            return Json(baseResult);
+        }
+        /// <summary>
+        /// Etkinliğe Sponsor Eklemek İçin Kullanılır
+        /// </summary>
+        /// <param name="eventSponsors"></param>
+        /// <returns></returns>
+        [HttpPost("neweventsponsor")]
+        [BusinessValidation]
+        public IActionResult NewEventSponsor([FromBody]List<EventSponsor> eventSponsors)
+        {
+            BaseResult<EventModel> baseResult = new BaseResult<EventModel>();
+            bool isSuccess = false;
+            if (eventSponsors.Count>0)
+            {
+                int eventId = eventSponsors.FirstOrDefault().eventId;
+                int userId = Convert.ToInt32(HttpContext.User.Identity.Name);
+                Event _event = _SEvent.GetById(eventId);
+                if (_event.userId == userId)
+                {
+                    if (_SEventSponsor.BulkInsertSponsor(eventSponsors))
+                    {
+                        isSuccess = true;
+                    }
+                    else
+                    {
+                        baseResult.errMessage = "Sponsorlar Eklenemedi!";
+                    }
+                }
+                else
+                {
+                    baseResult.errMessage = "Kendinize Ait Olmayan Bir Etkinliğe Müdahale Edemezsiniz!";
+                }
+            }
+            else
+            {
+                baseResult.errMessage = "Hiçbir Kategori Bulunamadı!";
+            }
+            if (isSuccess)
+            {
+                return Json(baseResult);
+            }
+            else
+            {
+                baseResult.statusCode = HttpStatusCode.NotFound;
+                return new NotFoundObjectResult(baseResult);
+            }
+        }
+        /// <summary>
+        /// Etkinliğe Ait Kategoriler Getirir.
+        /// </summary>
+        /// <param name="_event"></param>
+        /// <returns></returns>
+        [HttpPost("geteventsponsor")]
+        public IActionResult GetEventSponsor([FromForm] Event _event)
+        {
+            BaseResult<EventModel> baseResult = new BaseResult<EventModel>();
+            baseResult.data.eventSponsors = _SEventSponsor.GetEventSponsors(_event.id);
+            return Json(baseResult);
+        }
+        /// <summary>
+        /// Etkinliğe Ait Sponsoru Siler
+        /// </summary>
+        /// <param name="eventSponsor"></param>
+        /// <returns></returns>
+        [HttpPost("deleteeventsponsor")]
+        [BusinessValidation]
+        public IActionResult DeleteEventSponsor([FromBody]EventSponsor eventSponsor)
+        {
+            BaseResult<EventModel> baseResult = new BaseResult<EventModel>();
+            bool isSuccess = false;
+            Event _event = _SEvent.GetById(eventSponsor.eventId);
+            int userId = Convert.ToInt32(HttpContext.User.Identity.Name);
+            if(_event.userId == userId)
+            {
+                if (_SEventSponsor.DeleteEventSponsor(eventSponsor.eventId,eventSponsor.sponsorId))
+                {
+                    isSuccess = true;
+                }
+                else
+                {
+                    baseResult.errMessage = "Sponsor Silme İşlemi Tamamlanamadı!";
+                }
+            }
+            else
+            {
+                baseResult.errMessage = "Kendinize Ait Olmayan Bir Etkinliğe Müdahale Edemezsiniz";
+            }
+            if (isSuccess)
+            {
+                return Json(baseResult);
+            }
+            else
+            {
+                baseResult.statusCode = HttpStatusCode.NotFound;
+                return new NotFoundObjectResult(baseResult);
+            }            
         }
     }
 }

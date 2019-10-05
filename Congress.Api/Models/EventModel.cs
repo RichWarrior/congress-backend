@@ -13,5 +13,7 @@ namespace Congress.Api.Models
         public Category category { get; set; }
 
         public List<EventCategory> eventCategoriesRel { get; set; }
+
+        public List<Sponsor>eventSponsors{ get; set; }
     }
 }

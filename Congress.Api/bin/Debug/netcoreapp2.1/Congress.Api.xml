@@ -185,6 +185,34 @@
             <param name="eventCategory"></param>
             <returns></returns>
         </member>
+        <member name="M:Congress.Api.Controllers.EventController.GetAvailableSponsor(Congress.Core.Entity.Event)">
+            <summary>
+            Etkinliğe Tanımlanabilecek Sponsorları Getirir.
+            </summary>
+            <param name="_event"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Congress.Api.Controllers.EventController.NewEventSponsor(System.Collections.Generic.List{Congress.Core.Entity.EventSponsor})">
+            <summary>
+            Etkinliğe Sponsor Eklemek İçin Kullanılır
+            </summary>
+            <param name="eventSponsors"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Congress.Api.Controllers.EventController.GetEventSponsor(Congress.Core.Entity.Event)">
+            <summary>
+            Etkinliğe Ait Kategoriler Getirir.
+            </summary>
+            <param name="_event"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Congress.Api.Controllers.EventController.DeleteEventSponsor(Congress.Core.Entity.EventSponsor)">
+            <summary>
+            Etkinliğe Ait Sponsoru Siler
+            </summary>
+            <param name="eventSponsor"></param>
+            <returns></returns>
+        </member>
         <member name="M:Congress.Api.Controllers.JobController.GetJobs">
             <summary>
             Meslek Dallarını Geri Döndürür.

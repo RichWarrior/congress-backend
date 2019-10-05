@@ -26,5 +26,11 @@ namespace Congress.Data.Service
         {
             return dbContext.Update(sponsor);
         }
+
+        public List<Sponsor> GetEventAvailableSponsor(int eventId)
+        {
+            string sql = @"SELECT * FROM sponsor s WHERE s.id NOT IN (SELECT sponsorId FROM eventsponsor WHERE eventId = @eventId AND statusId = 2) AND s.statusId <> 1";
+            return dbContext.GetByQueryAll<Sponsor>(sql, new { eventId = eventId }).ToList();
+        }
     }
 }
