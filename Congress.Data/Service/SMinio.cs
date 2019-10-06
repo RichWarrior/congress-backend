@@ -28,7 +28,7 @@ namespace Congress.Data.Service
                     using (Stream stream = file.OpenReadStream())
                     {
                         await minio.PutObjectAsync(bucketName, fileName, stream, stream.Length);
-                        _rtn = String.Format(@"http://{0}/{1}/{2}", con.minioHost, bucketName, fileName);
+                        _rtn = String.Format(@"http://{0}/{1}/{2}", con.remoteMinioHost, bucketName, fileName);
                     }
                 }
                 else
