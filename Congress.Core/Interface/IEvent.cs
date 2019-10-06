@@ -29,5 +29,7 @@ namespace Congress.Core.Interface
         /// <param name="id"></param>
         /// <returns></returns>
         Event GetById(int id);
+
+        List<Event> GetActiveEvents(int userId);
     }
 }

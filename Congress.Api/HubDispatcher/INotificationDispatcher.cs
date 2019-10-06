@@ -1,7 +1,4 @@
 ﻿using Congress.Core.QueueModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Congress.Api.HubDispatcher
@@ -10,5 +7,7 @@ namespace Congress.Api.HubDispatcher
     {
         Task SendEmailVerification(EmailVerificationQueueModel model);
         Task SendPassword(PasswordQueueModel model);
+
+        Task SendEventPushNotification(EventQueueModel model);
     }
 }

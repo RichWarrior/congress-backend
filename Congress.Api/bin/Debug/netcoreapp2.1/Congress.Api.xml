@@ -213,6 +213,19 @@
             <param name="eventSponsor"></param>
             <returns></returns>
         </member>
+        <member name="M:Congress.Api.Controllers.EventController.GetActiveEvent">
+            <summary>
+            Bitmemiş Aktif Etkinlikleri Görüntüler
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Congress.Api.Controllers.EventController.SendPushNotification(Congress.Core.QueueModel.EventQueueModel)">
+            <summary>
+            Etkinlik Katılımcılarına Bildirim Göndermek İçin Kullanılır.
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
         <member name="M:Congress.Api.Controllers.JobController.GetJobs">
             <summary>
             Meslek Dallarını Geri Döndürür.

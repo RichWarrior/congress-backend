@@ -748,7 +748,7 @@ namespace Congress.Api.Controllers
         {
             BaseResult<EventModel> baseResult = new BaseResult<EventModel>();
             bool isSuccess = false;
-            if (eventSponsors.Count>0)
+            if (eventSponsors.Count > 0)
             {
                 int eventId = eventSponsors.FirstOrDefault().eventId;
                 int userId = Convert.ToInt32(HttpContext.User.Identity.Name);
@@ -808,9 +808,9 @@ namespace Congress.Api.Controllers
             bool isSuccess = false;
             Event _event = _SEvent.GetById(eventSponsor.eventId);
             int userId = Convert.ToInt32(HttpContext.User.Identity.Name);
-            if(_event.userId == userId)
+            if (_event.userId == userId)
             {
-                if (_SEventSponsor.DeleteEventSponsor(eventSponsor.eventId,eventSponsor.sponsorId))
+                if (_SEventSponsor.DeleteEventSponsor(eventSponsor.eventId, eventSponsor.sponsorId))
                 {
                     isSuccess = true;
                 }
@@ -831,7 +831,53 @@ namespace Congress.Api.Controllers
             {
                 baseResult.statusCode = HttpStatusCode.NotFound;
                 return new NotFoundObjectResult(baseResult);
-            }            
+            }
+        }
+        /// <summary>
+        /// Bitmemiş Aktif Etkinlikleri Görüntüler
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("getactiveevent")]
+        [BusinessValidation]
+        public IActionResult GetActiveEvent()
+        {
+            BaseResult<EventModel> baseResult = new BaseResult<EventModel>();
+            int userId = Convert.ToInt32(HttpContext.User.Identity.Name);
+            baseResult.data.events = _SEvent.GetActiveEvents(userId);
+            return Json(baseResult);
+        }
+        /// <summary>
+        /// Etkinlik Katılımcılarına Bildirim Göndermek İçin Kullanılır.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost("sendpushnotification")]
+        [BusinessValidation]
+        public async Task<IActionResult> SendPushNotification([FromBody]EventQueueModel model)
+        {
+            BaseResult<EventModel> baseResult = new BaseResult<EventModel>();
+            bool isSuccess = false;
+            Event _event = _SEvent.GetById(model.eventId);
+            int userId = Convert.ToInt32(HttpContext.User.Identity.Name);
+            if (_event.userId == userId)
+            {
+                await notificationDispatcher.SendEventPushNotification(model);
+                baseResult.errMessage = "Bildirim Gönderilmek Üzere İşlenilmeye Başlandı!";
+                isSuccess = true;
+            }
+            else
+            {
+                baseResult.errMessage = "Kendinize Ait Olmayan Bir Etkinliğe Müdahale Edemezsiniz";
+            }
+            if (isSuccess)
+            {             
+                return Json(baseResult);
+            }
+            else
+            {
+                baseResult.statusCode = HttpStatusCode.NotFound;
+                return new NotFoundObjectResult(baseResult);
+            }
         }
     }
 }

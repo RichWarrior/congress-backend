@@ -14,6 +14,12 @@ namespace Congress.PushNotification
         Queue<EmailVerificationQueueModel> emailVerificationQueues;
         Timer emailVerificaitonTimer;
         object emailVerificationLockObject;
+        Queue<PasswordQueueModel> passwordQueues;
+        Timer passwordTimer;
+        object passwordLockObject;
+        Queue<EventQueueModel> eventQueues;
+        Timer eventTimer;
+        object eventLockObject;
         #endregion
 
         public NotificationService()
@@ -22,11 +28,17 @@ namespace Congress.PushNotification
             emailVerificationQueues = new Queue<EmailVerificationQueueModel>();
             emailVerificationLockObject = new object();
 
-            HubConnection hubConnection = new HubConnectionBuilder().WithUrl(_connection.apiUrl+"/NotificationHub").Build();
-            hubConnection.StartAsync().ContinueWith(task =>
+            passwordQueues = new Queue<PasswordQueueModel>();
+            passwordLockObject = new object();
+
+            eventQueues = new Queue<EventQueueModel>();
+            eventLockObject = new object();
+
+            HubConnection connection = new HubConnectionBuilder().WithUrl(_connection.apiUrl + "/NotificationHub").Build();
+            connection.StartAsync().ContinueWith(task =>
             {
                 if (task.IsFaulted)
-                {                    
+                {
                     Console.WriteLine(task.Exception);
                 }
                 else
@@ -35,13 +47,44 @@ namespace Congress.PushNotification
                 }
             });
 
-            emailVerificaitonTimer = new Timer(EmailVerificationTick,emailVerificationLockObject,TimeSpan.Zero,TimeSpan.FromSeconds(10));
+            connection.On<EventQueueModel>("sendEventPushNotification", (item) =>
+            {
+                eventQueues.Enqueue(item);
+            });
+
+            connection.On<EmailVerificationQueueModel>("SendEmailVerification", (item) =>
+            {
+                emailVerificationQueues.Enqueue(item);
+            });
+
+            connection.On<PasswordQueueModel>("SendPassword", (item) =>
+            {
+                passwordQueues.Enqueue(item);
+            });
+
+            emailVerificaitonTimer = new Timer(EmailVerificationTick, emailVerificationLockObject, TimeSpan.Zero, TimeSpan.FromSeconds(15));
+            passwordTimer = new Timer(PasswordTick, passwordLockObject, TimeSpan.Zero, TimeSpan.FromSeconds(15));
+            eventTimer = new Timer(EventTick, eventLockObject, TimeSpan.Zero, TimeSpan.FromSeconds(15));
         }
 
         private void EmailVerificationTick(object state)
         {
             if (!Monitor.TryEnter(state))
                 return;
+            Monitor.Exit(state);
+        }
+
+        private void PasswordTick(object state)
+        {
+            if (!Monitor.TryEnter(state))
+                return;
+            Monitor.Exit(state);
+        }
+
+        private void EventTick(object state)
+        {
+            if (!Monitor.TryEnter(state))
+                return;            
             Monitor.Exit(state);
         }
     }
