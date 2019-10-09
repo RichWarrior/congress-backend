@@ -10,6 +10,8 @@ namespace Congress.Core.Entity
     {
         public int userId { get; set; }
         public string name { get; set; }
+
+        public string description { get; set; }
         public string logoPath { get; set; }
         public int countryId { get; set; }
         public int cityId { get; set; }
@@ -22,5 +24,14 @@ namespace Congress.Core.Entity
 
         [Write(false)]
         public int isCompleted { get; set; }
+
+        [Write(false)]
+        public string CountryName { get; set; }
+        
+        [Write(false)]
+        public string CityName { get; set; }
+
+        [Write(false)]
+        public string creatorName { get; set; }
     }
 }

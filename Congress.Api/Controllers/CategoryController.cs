@@ -11,7 +11,6 @@ namespace Congress.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class CategoryController : BaseController
     {
         ICategory _SCategory;
@@ -134,6 +133,14 @@ namespace Congress.Api.Controllers
                 baseResult.errMessage = "İşleminiz Tamamlanamadı!";
                 return new NotFoundObjectResult(baseResult);
             }
+        }        
+
+        [HttpPost("getparentcategory")]
+        public IActionResult GetParentCategory([FromBody]Category category)
+        {
+            BaseResult<CategoryModel> baseResult = new BaseResult<CategoryModel>();
+            baseResult.data.categories = _SCategory.GetSubCategories(category.id);
+            return Json(baseResult);
         }        
     }
 }

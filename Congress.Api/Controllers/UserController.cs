@@ -1,4 +1,5 @@
-﻿using Congress.Api.HubDispatcher;
+﻿using Congress.Api.Filters;
+using Congress.Api.HubDispatcher;
 using Congress.Api.Models;
 using Congress.Core.Entity;
 using Congress.Core.Enums;
@@ -24,15 +25,18 @@ namespace Congress.Api.Controllers
     {
         IUser _SUser;
         IMinio _SMinio;
-        INotificationDispatcher notificationDispatcher;
         IMenu _SMenu;
+        IUserInterest _SUserInterest;
+        INotificationDispatcher notificationDispatcher;
         public UserController(IMethod _SMethod,IUser _SUser,
-            IMinio _SMinio,INotificationDispatcher notificationDispatcher,IMenu _SMenu) 
+            IMinio _SMinio, IMenu _SMenu,IUserInterest _SUserInterest,
+            INotificationDispatcher notificationDispatcher) 
             : base(_SMethod)
         {
             this._SUser = _SUser;
             this._SMinio = _SMinio;
             this._SMenu = _SMenu;
+            this._SUserInterest = _SUserInterest;
             this.notificationDispatcher = notificationDispatcher;
         }
 
@@ -210,6 +214,121 @@ namespace Congress.Api.Controllers
                 baseResult.statusCode = HttpStatusCode.NotFound;
                 return new NotFoundObjectResult(baseResult);
             }
+        }
+        /// <summary>
+        /// Kullanıcıya Tanımlanabilecek Kategorileri Getirir.
+        /// </summary>
+        /// <param name="category"></param>
+        /// <returns></returns>
+        [HttpPost("getuseravailableinterest")]
+        [UserValidation]
+        public IActionResult GetUserAvailableInterest([FromBody]Category category)
+        {
+            BaseResult<UserModel> baseResult = new BaseResult<UserModel>();
+            int userId = Convert.ToInt32(HttpContext.User.Identity.Name);
+            baseResult.data.userAvailableCategory = _SUserInterest.GetAvailableCategories(userId,category.id);
+            return Json(baseResult);
+        }
+        /// <summary>
+        /// Kullanıcıya İlgi Alanı Tanımlamak İçin Kullanılır
+        /// </summary>
+        /// <param name="userInterests"></param>
+        /// <returns></returns>
+        [HttpPost("newuserinterest")]
+        [UserValidation]
+        public IActionResult NewUserInterest([FromBody]List<UserInterest> userInterests)
+        {
+            BaseResult<UserModel> baseResult = new BaseResult<UserModel>();
+            bool isSuccess = false;
+            int userId = Convert.ToInt32(HttpContext.User.Identity.Name);
+            foreach (var item in userInterests)
+            {
+                item.userId = item.creatorId = userId;
+            }
+            if (_SUserInterest.BulkInsertInterest(userInterests))
+            {
+                isSuccess = true;
+            }
+            else
+            {
+                baseResult.errMessage = "İlgi Alanlarınız Eklenemedi!";
+            }
+            if (isSuccess)
+            {
+                return Json(baseResult);
+            }
+            else
+            {
+                baseResult.statusCode = HttpStatusCode.NotFound;
+                return new NotFoundObjectResult(baseResult);
+            }            
+        }
+        /// <summary>
+        /// Kullanıcının İlgi Alanlarını Getirir.
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("getuserinterest")]
+        [UserValidation]
+        public IActionResult GetUserInterest()
+        {
+            BaseResult<UserModel> baseResult = new BaseResult<UserModel>();
+            int userId = Convert.ToInt32(HttpContext.User.Identity.Name);
+            baseResult.data.userInterest = _SUserInterest.GetUserInterest(userId);
+            return Json(baseResult);
+        }
+        /// <summary>
+        /// İlgi Alanı Silmek İçin Kullanılır.
+        /// </summary>
+        /// <param name="userInterest"></param>
+        /// <returns></returns>
+        [HttpPost("deleteuserinterest")]
+        [UserValidation]
+        public IActionResult DeleteUserInterest([FromBody]Category userInterest)
+        {
+            BaseResult<UserModel> baseResult = new BaseResult<UserModel>();
+            bool isSuccess = false;
+            int userId = Convert.ToInt32(HttpContext.User.Identity.Name);
+            if (_SUserInterest.DeleteUserInterest(userId,userInterest.id))
+            {
+                isSuccess = true;
+            }
+            else
+            {
+                baseResult.errMessage = "İlgi Alanınız Silinemedi!";
+            }
+            if (isSuccess)
+            {
+                return Json(baseResult);
+            }
+            else
+            {
+                baseResult.statusCode = HttpStatusCode.NotFound;
+                return new NotFoundObjectResult(baseResult);
+            }
+        }
+
+        /// <summary>
+        /// Kullanıcının Katıldığı Etkinlikleri Listeler
+        /// </summary>
+        [HttpPost("getuserparticipantevent")]
+        [UserValidation]
+        public IActionResult GetUserParticipantEvent()
+        {
+            BaseResult<UserModel> baseResult = new BaseResult<UserModel>();
+            int userId= Convert.ToInt32(HttpContext.User.Identity.Name);
+            baseResult.data.userEvents = _SUser.GetUserParticipantEvents(userId);
+            foreach (var item in baseResult.data.userEvents)
+            {
+                if (item.endDate> DateTime.Now)
+                {
+                    item.isCompleted = 1;
+                }
+                else
+                {
+                    item.isCompleted = 2;
+                }
+            }
+            return Json(baseResult);
         }
     }
 }

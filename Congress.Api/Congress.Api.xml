@@ -226,6 +226,19 @@
             <param name="model"></param>
             <returns></returns>
         </member>
+        <member name="M:Congress.Api.Controllers.EventController.GetActiveEvents">
+            <summary>
+            Anasayfada Etkinlikleri Görüntülemek İçin Kullanılır
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Congress.Api.Controllers.EventController.GetEventAllData(Congress.Core.Entity.Event)">
+            <summary>
+            Etkinliği Görüntülemek İçin Gerekli Tüm Verileri Getirir.
+            </summary>
+            <param name="_event"></param>
+            <returns></returns>
+        </member>
         <member name="M:Congress.Api.Controllers.JobController.GetJobs">
             <summary>
             Meslek Dallarını Geri Döndürür.
@@ -311,6 +324,38 @@
             </summary>
             <param name="user"></param>
             <returns></returns>
+        </member>
+        <member name="M:Congress.Api.Controllers.UserController.GetUserAvailableInterest(Congress.Core.Entity.Category)">
+            <summary>
+            Kullanıcıya Tanımlanabilecek Kategorileri Getirir.
+            </summary>
+            <param name="category"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Congress.Api.Controllers.UserController.NewUserInterest(System.Collections.Generic.List{Congress.Core.Entity.UserInterest})">
+            <summary>
+            Kullanıcıya İlgi Alanı Tanımlamak İçin Kullanılır
+            </summary>
+            <param name="userInterests"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Congress.Api.Controllers.UserController.GetUserInterest">
+            <summary>
+            Kullanıcının İlgi Alanlarını Getirir.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Congress.Api.Controllers.UserController.DeleteUserInterest(Congress.Core.Entity.Category)">
+            <summary>
+            İlgi Alanı Silmek İçin Kullanılır.
+            </summary>
+            <param name="userInterest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Congress.Api.Controllers.UserController.GetUserParticipantEvent">
+            <summary>
+            Kullanıcının Katıldığı Etkinlikleri Listeler
+            </summary>
         </member>
     </members>
 </doc>

@@ -47,6 +47,14 @@ namespace Congress.Data.Service
             return dbContext.GetByQueryAll<User>(sql,new { }).ToList();
         }
 
+        public List<Event> GetUserParticipantEvents(int userId)
+        {
+            string sql = @"SELECT e.* FROM eventparticipant ep
+            INNER JOIN event e ON e.id = ep.eventId
+            WHERE ep.statusId = 2 AND ep.userId= @userId";
+            return dbContext.GetByQueryAll<Event>(sql, new { userId = userId }).ToList();
+        }
+
         public int InsertUser(User user)
         {
             return dbContext.Insert(user);

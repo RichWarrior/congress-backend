@@ -33,12 +33,13 @@ namespace Congress.Api.Controllers
         ICategory _SCategory;
         IEventSponsor _SEventSponsor;
         ISponsor _SSponsor;
+        IUserInterest _SUserInterest;
         INotificationDispatcher notificationDispatcher;
         public EventController(IMethod _SMethod,
             IEvent _SEvent, IMinio _SMinio,
             IUser _SUser, IEventDetail _SEventDetail, IEventParticipant _SEventParticipant,
             IEventCategory _SEventCategory, ICategory _SCategory, IEventSponsor _SEventSponsor,
-            ISponsor _SSponsor,
+            ISponsor _SSponsor,IUserInterest _SUserInterest,
             INotificationDispatcher notificationDispatcher
             )
             : base(_SMethod)
@@ -52,6 +53,7 @@ namespace Congress.Api.Controllers
             this._SCategory = _SCategory;
             this._SEventSponsor = _SEventSponsor;
             this._SSponsor = _SSponsor;
+            this._SUserInterest = _SUserInterest;
             this.notificationDispatcher = notificationDispatcher;
         }
 
@@ -879,5 +881,92 @@ namespace Congress.Api.Controllers
                 return new NotFoundObjectResult(baseResult);
             }
         }
+
+        /// <summary>
+        /// Anasayfada Etkinlikleri Görüntülemek İçin Kullanılır
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("gethomepageevent")]
+        [AllowAnonymous]
+        public  IActionResult GetActiveEvents()
+        {
+            BaseResult<EventModel> baseResult = new BaseResult<EventModel>();
+            bool isAuthenticated = HttpContext.User.Identity.IsAuthenticated;
+            if (isAuthenticated)
+            {
+                int userId = Convert.ToInt32(HttpContext.User.Identity.Name);
+                User user = _SUser.GetById(userId);
+                if (_SUserInterest.GetUserInterest(userId).Count>0)
+                {
+                    string sql = @"SELECT e.*,ct.name 'CountryName',ci.name 'CityName',CONCAT(u.name,' ',u.surname)
+                    'creatorName' FROM event e
+                    INNER JOIN eventcategory eg ON eg.eventId = e.id
+                    INNER JOIN country ct ON ct.id = e.countryId
+                    INNER JOIN city ci ON ci.id = e.cityId
+                    INNER JOIN user u ON u.id = e.userId
+                    WHERE e.statusId = 2 AND e.endDate> NOW() AND eg.categoryId IN (
+                    SELECT ui.interestId FROM user u
+                    INNER JOIN userinterest ui ON u.id = ui.userId
+                    WHERE u.id = @userId AND ui.statusId = 2  GROUP BY ui.interestId
+                    ) AND e.countryId = @countryId AND e.cityId = @cityId ORDER BY e.id ASC";
+                    baseResult.data.events = _SEvent.GetEvents(sql,new {
+                        userId = userId,
+                        countryId = user.countryId,
+                        cityId = user.cityId
+                    });
+                }
+                else
+                {
+                    string sql = @"SELECT e.*,ct.name 'CountryName', ci.name 'CityName', CONCAT(u.name,' ',u.surname) AS 'creatorName'
+                    FROM event e
+                    INNER JOIN country ct ON ct.id = e.countryId
+                    INNER JOIN city ci ON ci.id= e.cityId
+                    INNER JOIN user u ON u.id = e.userId
+                    WHERE e.statusId = 2 AND e.endDate > NOW() AND ct.id = @countryId AND ci.id = @cityId ORDER BY e.id ASC";
+                    baseResult.data.events = _SEvent.GetEvents(sql,new {
+                        countyId = user.countryId,
+                        cityId = user.cityId
+                    });
+                }
+            }
+            else
+            {
+                string sql = @"SELECT e.*,CONCAT(u.name,' ',u.surname) FROM event e
+                INNER JOIN user u ON u.id = e.userId
+                WHERE e.endDate > NOW() AND e.statusId = 2 ORDER BY e.id ASC";
+                baseResult.data.events = _SEvent.GetEvents(sql, new { });
+            }
+            var distinctItems = baseResult.data.events.GroupBy(x=>x.id).Select(y=>y.First());
+            List<Event> temp = new List<Event>();
+            foreach (var item in distinctItems)
+            {
+                temp.Add(item);
+            }
+            baseResult.data.events = temp;
+            return Json(baseResult);
+        }
+        /// <summary>
+        /// Etkinliği Görüntülemek İçin Gerekli Tüm Verileri Getirir.
+        /// </summary>
+        /// <param name="_event"></param>
+        /// <returns></returns>
+        [HttpPost("geteventalldata")]
+        [AllowAnonymous]
+        public IActionResult GetEventAllData([FromBody]Event _event)
+        {
+            BaseResult<EventModel> baseResult = new BaseResult<EventModel>();
+            baseResult.data.cgevent = _SEvent.GetById(_event.id);
+            if (baseResult.data.cgevent != null)
+            {
+                return Json(baseResult);
+            }
+            else
+            {
+                baseResult.statusCode = HttpStatusCode.NotFound;
+                baseResult.errMessage = "Böyle Bir Etkinlik Bulunamadı!";
+                return new NotFoundObjectResult(baseResult);
+            }
+        }
+
     }
 }

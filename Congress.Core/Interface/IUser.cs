@@ -58,5 +58,7 @@ namespace Congress.Core.Interface
         /// <param name="users"></param>
         /// <returns></returns>
         bool BulkUserInsert(List<User> users);
+
+        List<Event> GetUserParticipantEvents(int userId);
     }
 }

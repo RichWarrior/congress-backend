@@ -29,7 +29,18 @@ namespace Congress.Core.Interface
         /// <param name="id"></param>
         /// <returns></returns>
         Event GetById(int id);
-
+        /// <summary>
+        /// Kullanıcının Katılım Gösterdiği Etkinlikleri Listeler
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         List<Event> GetActiveEvents(int userId);
+        /// <summary>
+        /// İstenilen Koşula Göre Etkinlikleri Listeler
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="_params"></param>
+        /// <returns></returns>
+        List<Event> GetEvents(string sql,object _params);
     }
 }

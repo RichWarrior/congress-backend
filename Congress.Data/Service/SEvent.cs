@@ -30,6 +30,11 @@ namespace Congress.Data.Service
             return dbContext.GetByQueryAll<Event>(sql, new { userId = userId }).ToList();
         }
 
+        public List<Event> GetEvents(string sql, object _params)
+        {
+            return dbContext.GetByQueryAll<Event>(sql, _params).ToList();
+        }
+
         public int Insert(Event _event)
         {
             return dbContext.Insert(_event);
