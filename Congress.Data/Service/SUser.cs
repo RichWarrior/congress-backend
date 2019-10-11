@@ -36,6 +36,12 @@ namespace Congress.Data.Service
             return dbContext.GetByQueryAll<User>(sql, new { }).ToList();
         }
 
+        public User GetByEmail(string email)
+        {
+            string sql = "SELECT * FROM user WHERE email=@email AND statusId = 2";
+            return dbContext.GetByQuery<User>(sql, new { email = email });
+        }
+
         public User GetById(int id)
         {
             return dbContext.GetById<User>(id);

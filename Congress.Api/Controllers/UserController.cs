@@ -330,5 +330,53 @@ namespace Congress.Api.Controllers
             }
             return Json(baseResult);
         }
+
+        [HttpPost("forgotpassword")]
+        [AllowAnonymous]
+        public async Task<IActionResult> ForgotPassword([FromBody]User user)
+        {
+            BaseResult<UserModel> baseResult = new BaseResult<UserModel>();
+            bool isSuccess = false;
+            User _user = _SUser.GetByEmail(user.email);
+            if (user!=null)
+            {
+                string guid = Guid.NewGuid().ToString();
+                string password = "";
+                for (int i = 0; i < 8; i++)
+                {
+                    password += guid[i];
+                }
+                string hashedValue = _SMethod.StringToMd5(password);
+                _user.password = hashedValue;
+                if (_SUser.UpdateUser(_user))
+                {
+                    baseResult.errMessage = "Şifreniz Sıfırlandı ve E-Posta Adresinize Gönderiliyor!";
+                    isSuccess = true;
+                    PasswordQueueModel passwordQueueModel = new PasswordQueueModel()
+                    {
+                        email = _user.email,
+                        password = password
+                    };
+                    await notificationDispatcher.SendPassword(passwordQueueModel);
+                }
+                else
+                {
+                    baseResult.errMessage = "Kullanıcının Şifresi Sıfırlanamadı!";
+                }
+            }
+            else
+            {
+                baseResult.errMessage = "Böyle Bir Kullanıcı Bulunamadı!";
+            }
+            if (isSuccess)
+            {
+                return Json(baseResult);
+            }
+            else
+            {
+                baseResult.statusCode = HttpStatusCode.NotFound;
+                return new NotFoundObjectResult(baseResult);
+            }            
+        }
     }
 }

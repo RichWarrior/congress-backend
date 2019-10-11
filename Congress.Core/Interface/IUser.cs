@@ -58,7 +58,17 @@ namespace Congress.Core.Interface
         /// <param name="users"></param>
         /// <returns></returns>
         bool BulkUserInsert(List<User> users);
-
+        /// <summary>
+        /// Kullanıcının Katıldığı Etkinlikleri Getirir.
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         List<Event> GetUserParticipantEvents(int userId);
+        /// <summary>
+        /// İstenilen E-Postaya Ait Kullanıcıyı Getirir.
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        User GetByEmail(string email);
     }
 }
