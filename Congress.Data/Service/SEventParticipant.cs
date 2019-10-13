@@ -27,7 +27,7 @@ namespace Congress.Data.Service
 
         public List<User> GetEventParticipants(int eventId)
         {
-            string sql = @"SELECT u.id,u.email,u.name,u.surname FROM user u WHERE u.id IN (SELECT ep.userId FROM eventparticipant ep WHERE ep.eventId = @eventId AND ep.statusId = 2)";
+            string sql = @"SELECT u.id,u.email,u.name,u.surname,u.avatarPath FROM user u WHERE u.id IN (SELECT ep.userId FROM eventparticipant ep WHERE ep.eventId = @eventId AND ep.statusId = 2)";
             return dbContext.GetByQueryAll<User>(sql, new { eventId = eventId }).ToList();
         }
 

@@ -330,7 +330,11 @@ namespace Congress.Api.Controllers
             }
             return Json(baseResult);
         }
-
+        /// <summary>
+        /// Şifre Yenileme İçin Kullanılır.
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         [HttpPost("forgotpassword")]
         [AllowAnonymous]
         public async Task<IActionResult> ForgotPassword([FromBody]User user)
@@ -338,7 +342,7 @@ namespace Congress.Api.Controllers
             BaseResult<UserModel> baseResult = new BaseResult<UserModel>();
             bool isSuccess = false;
             User _user = _SUser.GetByEmail(user.email);
-            if (user!=null)
+            if (_user != null)
             {
                 string guid = Guid.NewGuid().ToString();
                 string password = "";
@@ -377,6 +381,46 @@ namespace Congress.Api.Controllers
                 baseResult.statusCode = HttpStatusCode.NotFound;
                 return new NotFoundObjectResult(baseResult);
             }            
+        }
+        /// <summary>
+        /// Kullanıcı E-Posta Onayı İçin Kullanılır
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        [HttpPost("activateuser")]
+        [AllowAnonymous]
+        public IActionResult ActivateUser([FromBody]User user)
+        {
+            BaseResult<UserModel> baseResult = new BaseResult<UserModel>();
+            bool isSuccess = false;
+            User _user = _SUser.GetByGuid(user.userGuid);
+            if (_user!=null)
+            {
+                _user.emailVerification = 2;
+                _user.userGuid = Guid.NewGuid().ToString();
+                if (_SUser.UpdateUser(_user))
+                {
+                    isSuccess = true;
+                    baseResult.data.user = user;
+                }
+                else
+                {
+                    baseResult.errMessage = "E-Posta Adresiniz Onaylanamadı!";
+                }
+            }
+            else
+            {
+                baseResult.errMessage = "Bu Bilgilere Ait Bir Kullanıcı Bulunamadı!";
+            }
+            if (isSuccess)
+            {
+                return Json(baseResult);
+            }
+            else
+            {
+                baseResult.statusCode = HttpStatusCode.NotFound;
+                return new NotFoundObjectResult(baseResult);
+            }
         }
     }
 }

@@ -23,5 +23,11 @@ namespace Congress.Core.Interface
         /// <param name="eventDetail"></param>
         /// <returns></returns>
         bool UpdateEventDetail(EventDetail eventDetail);
+        /// <summary>
+        /// Etkinlik Detaylarını Listeli Düzenli Şekilde Getirir.
+        /// </summary>
+        /// <param name="eventId"></param>
+        /// <returns></returns>
+        List<EventDetail> GetEventDetailsOrderByDay(int eventId);
     }
 }

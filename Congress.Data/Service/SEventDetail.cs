@@ -19,6 +19,12 @@ namespace Congress.Data.Service
             return dbContext.GetByQueryAll<EventDetail>(sql, new { eventId = eventId}).ToList();
         }
 
+        public List<EventDetail> GetEventDetailsOrderByDay(int eventId)
+        {
+            string sql = "SELECT * FROM eventdetail WHERE eventId = @eventId AND statusId = 2 ORDER BY day,startTime";
+            return dbContext.GetByQueryAll<EventDetail>(sql, new { eventId = eventId }).ToList();
+        }
+
         public int InsertEventDetail(EventDetail eventDetail)
         {
             return dbContext.Insert(eventDetail);

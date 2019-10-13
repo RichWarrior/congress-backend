@@ -70,5 +70,11 @@ namespace Congress.Core.Interface
         /// <param name="email"></param>
         /// <returns></returns>
         User GetByEmail(string email);
+        /// <summary>
+        /// İstenilen Guid Değerine Göre Kullanıcıyı Getirir.
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <returns></returns>
+        User GetByGuid(string guid);
     }
 }

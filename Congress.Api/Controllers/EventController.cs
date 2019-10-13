@@ -958,6 +958,8 @@ namespace Congress.Api.Controllers
             baseResult.data.cgevent = _SEvent.GetById(_event.id);
             if (baseResult.data.cgevent != null)
             {
+                baseResult.data.eventDetails = _SEventDetail.GetEventDetailsOrderByDay(_event.id);
+                baseResult.data.eventParticipants = _SEventParticipant.GetEventParticipants(_event.id);
                 return Json(baseResult);
             }
             else

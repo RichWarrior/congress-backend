@@ -11,7 +11,6 @@ namespace Congress.Api.Models
         public string token { get; set; }
         public List<Category> userAvailableCategory { get; set; }
         public List<Category> userInterest { get; set; }
-
-        public List<Event> userEvents { get; set; }
+        public List<Event> userEvents { get; set; }        
     }
 }

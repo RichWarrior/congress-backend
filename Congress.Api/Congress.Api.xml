@@ -357,5 +357,19 @@
             Kullanıcının Katıldığı Etkinlikleri Listeler
             </summary>
         </member>
+        <member name="M:Congress.Api.Controllers.UserController.ForgotPassword(Congress.Core.Entity.User)">
+            <summary>
+            Şifre Yenileme İçin Kullanılır.
+            </summary>
+            <param name="user"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Congress.Api.Controllers.UserController.ActivateUser(Congress.Core.Entity.User)">
+            <summary>
+            Kullanıcı E-Posta Onayı İçin Kullanılır
+            </summary>
+            <param name="user"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>
