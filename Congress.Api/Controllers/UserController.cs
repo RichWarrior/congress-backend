@@ -120,14 +120,21 @@ namespace Congress.Api.Controllers
             if (_user != null)
             {
                 if(_user.statusId == 2)
-                {
+                {                    
                     if(_user.emailVerification == 2)
                     {
-                        baseResult.data.user = _user;
-                        baseResult.data.menus = _SMenu.GetUserMenu(user.loginType, _user.userTypeId);
-                        string jsonUser = JsonConvert.SerializeObject(_user);
-                        baseResult.data.token = GenerateToken(_user.id.ToString(), jsonUser);
-                        isSuccess = true;
+                        if (_user.loginType == (int)enumLoginType.Phone && _user.userTypeId != (int)enumUserType.user)
+                        {
+                            baseResult.errMessage = "Normal Kullanıcı Dışındaki Kullanıcılar Mobil Uygulamayı Kullanamazlar";
+                        }
+                        else
+                        {
+                            baseResult.data.user = _user;
+                            baseResult.data.menus = _SMenu.GetUserMenu(user.loginType, _user.userTypeId);
+                            string jsonUser = JsonConvert.SerializeObject(_user);
+                            baseResult.data.token = GenerateToken(_user.id.ToString(), jsonUser);
+                            isSuccess = true;
+                        }                        
                     }
                     else
                     {

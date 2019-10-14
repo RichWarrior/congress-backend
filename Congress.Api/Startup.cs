@@ -129,7 +129,7 @@ namespace Congress.Api
             app.UseSwagger()
            .UseSwaggerUI(c =>
            {
-               c.SwaggerEndpoint("/swagger/Congress/swagger.json", "Congress Api");
+               c.SwaggerEndpoint("../swagger/Congress/swagger.json", "Congress Api");
            });
 
             app.UseSignalR(routes =>

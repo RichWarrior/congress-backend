@@ -53,6 +53,14 @@ namespace Congress.Data.Service
             return dbContext.GetById<User>(id);
         }
 
+        public User GetEventCreatorUser(int eventId)
+        {
+            string sql = @"SELECT u.phoneNr,u.email FROM event e
+            INNER JOIN user u ON u.id = e.userId
+            WHERE e.id = @eventId";
+            return dbContext.GetByQuery<User>(sql, new { eventId = eventId });
+        }
+
         public List<User> GetParticipant()
         {
             string sql = "SELECT * FROM user WHERE userTypeId = 3 ORDER BY creationDate DESC";

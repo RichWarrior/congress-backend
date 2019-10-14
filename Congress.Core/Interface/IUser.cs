@@ -76,5 +76,7 @@ namespace Congress.Core.Interface
         /// <param name="guid"></param>
         /// <returns></returns>
         User GetByGuid(string guid);
+
+        User GetEventCreatorUser(int eventId);
     }
 }

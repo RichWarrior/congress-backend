@@ -960,6 +960,7 @@ namespace Congress.Api.Controllers
             {
                 baseResult.data.eventDetails = _SEventDetail.GetEventDetailsOrderByDay(_event.id);
                 baseResult.data.eventParticipants = _SEventParticipant.GetEventParticipants(_event.id);
+                baseResult.data.eventCreator = _SUser.GetEventCreatorUser(_event.id);
                 return Json(baseResult);
             }
             else

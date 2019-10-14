@@ -14,5 +14,6 @@ namespace Congress.Api.Models
         public List<EventCategory> eventCategoriesRel { get; set; }
         public List<Sponsor>eventSponsors{ get; set; }
         public List<User> eventParticipants { get; set; }
+        public User eventCreator { get; set; }
     }
 }
