@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Congress.Data\Congress.Data.csproj" />
+    <ProjectReference Include="..\Congress.MailLibrary\Congress.MailLibrary.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,9 @@
-﻿using Congress.Core.Interface;
+﻿using Congress.Core.Entity;
+using Congress.Core.Interface;
 using Congress.Core.Tags;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Mail;
 using System.Reflection;
@@ -48,6 +51,34 @@ namespace Congress.Data.Service
             {
             }
             return rtn;
+        }
+
+        public T SystemParameterToObject<T>(List<SystemParameter> systemParameters)
+        {
+            T result = (T)Activator.CreateInstance(typeof(T));
+            try
+            {
+                PropertyInfo[] resultProperties = result.GetType().GetProperties();
+                T instance = (T)Activator.CreateInstance(typeof(T));
+                foreach (var item in systemParameters)
+                {
+                    foreach (var property in resultProperties)
+                    {
+                        if (property.Name == item.keystr)
+                        {
+                            Type propertyType = property.PropertyType;
+                            var propertyValue = Convert.ChangeType(item.valuestr, propertyType);
+                            property.SetValue(instance, propertyValue);
+                        }
+                    }
+                    result = instance;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            return result;
         }
     }
 }

@@ -9,6 +9,7 @@
       "Congress.PushNotification/1.0.0": {
         "dependencies": {
           "Congress.Data": "1.0.0",
+          "Congress.MailLibrary": "1.0.0",
           "Microsoft.AspNetCore.SignalR.Client": "1.1.0"
         },
         "runtime": {
@@ -903,6 +904,11 @@
         "runtime": {
           "Congress.Data.dll": {}
         }
+      },
+      "Congress.MailLibrary/1.0.0": {
+        "runtime": {
+          "Congress.MailLibrary.dll": {}
+        }
       }
     }
   },
@@ -1534,6 +1540,11 @@
       "sha512": ""
     },
     "Congress.Data/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Congress.MailLibrary/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

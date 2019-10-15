@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Congress.Core.Entity;
+using System;
+using System.Collections.Generic;
 
 namespace Congress.Core.Interface
 {
@@ -22,5 +24,7 @@ namespace Congress.Core.Interface
         /// <param name="email"></param>
         /// <returns></returns>
         bool ValidateEmail(string email);
+
+        T SystemParameterToObject<T>(List<SystemParameter> systemParameters);
     }
 }

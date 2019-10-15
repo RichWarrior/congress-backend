@@ -112,6 +112,7 @@ namespace Congress.Api
             services.AddScoped<IEventCategory, SEventCategory>();
             services.AddScoped<IEventSponsor, SEventSponsor>();
             services.AddScoped<IUserInterest, SUserInterest>();
+            services.AddScoped<ISystemParameter, SSystemParameter>();
 
             services.AddSingleton<INotificationDispatcher, NotificationDispatcher>();       
         }

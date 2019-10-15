@@ -2,8 +2,6 @@
 using Congress.Data.Data;
 using Congress.Data.Service;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 
 namespace Congress.TaskSchedule
@@ -17,7 +15,7 @@ namespace Congress.TaskSchedule
         public SponsorSchedule()
         {
             lockObject = new object();
-            timer = new Timer(SponsorTimerDoWork,lockObject,TimeSpan.Zero,TimeSpan.FromSeconds(5));
+            timer = new Timer(SponsorTimerDoWork,lockObject,TimeSpan.Zero,TimeSpan.FromDays(1));
             _SSponsor = new SSponsor(new DbContext());
         }
 

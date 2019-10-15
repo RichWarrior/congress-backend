@@ -9,6 +9,7 @@
         public string remoteMinioHost { get; set; }
 
         public string apiUrl { get; set; }
+        public string weburl { get; set; }
 
         public Connection()
         {
@@ -18,6 +19,7 @@
             minioSecretKey = "03102593";
             minioAccessKey = "admin";
             apiUrl = "http://localhost:5000";
+            weburl = "http://localhost:8080";
         }
     }
 }

@@ -1495,6 +1495,16 @@
         "runtime": {
           "bin/placeholder/Congress.Data.dll": {}
         }
+      },
+      "Congress.MailLibrary/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/Congress.MailLibrary.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Congress.MailLibrary.dll": {}
+        }
       }
     }
   },
@@ -5435,11 +5445,17 @@
       "type": "project",
       "path": "../Congress.Data/Congress.Data.csproj",
       "msbuildProject": "../Congress.Data/Congress.Data.csproj"
+    },
+    "Congress.MailLibrary/1.0.0": {
+      "type": "project",
+      "path": "../Congress.MailLibrary/Congress.MailLibrary.csproj",
+      "msbuildProject": "../Congress.MailLibrary/Congress.MailLibrary.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
       "Congress.Data >= 1.0.0",
+      "Congress.MailLibrary >= 1.0.0",
       "Microsoft.AspNetCore.SignalR.Client >= 1.1.0",
       "Microsoft.NETCore.App >= 2.1.0"
     ]
@@ -5476,6 +5492,9 @@
           "projectReferences": {
             "C:\\Projects\\congress-backend\\Congress.Data\\Congress.Data.csproj": {
               "projectPath": "C:\\Projects\\congress-backend\\Congress.Data\\Congress.Data.csproj"
+            },
+            "C:\\Projects\\congress-backend\\Congress.MailLibrary\\Congress.MailLibrary.csproj": {
+              "projectPath": "C:\\Projects\\congress-backend\\Congress.MailLibrary\\Congress.MailLibrary.csproj"
             }
           }
         }
