@@ -20,6 +20,9 @@ namespace Congress.PushNotification
         Queue<EventQueueModel> eventQueues;
         Timer eventTimer;
         object eventLockObject;
+        Queue<EventParticipantRequestQueueModel> eventParticipantRequestQueues;
+        Timer eventParticipantTimer;
+        object eventParticipantLockObject;
         #endregion
 
         public NotificationService()
@@ -33,6 +36,9 @@ namespace Congress.PushNotification
 
             eventQueues = new Queue<EventQueueModel>();
             eventLockObject = new object();
+
+            eventParticipantRequestQueues = new Queue<EventParticipantRequestQueueModel>();
+            eventParticipantLockObject = new object();
 
             HubConnection connection = new HubConnectionBuilder().WithUrl(_connection.apiUrl + "/NotificationHub").Build();
             connection.StartAsync().ContinueWith(task =>
@@ -62,9 +68,15 @@ namespace Congress.PushNotification
                 passwordQueues.Enqueue(item);
             });
 
+            connection.On<EventParticipantRequestQueueModel>("sendEventParticipantRequest", (item) =>
+            {
+                eventParticipantRequestQueues.Enqueue(item);
+            });
+
             emailVerificaitonTimer = new Timer(EmailVerificationTick, emailVerificationLockObject, TimeSpan.Zero, TimeSpan.FromSeconds(15));
             passwordTimer = new Timer(PasswordTick, passwordLockObject, TimeSpan.Zero, TimeSpan.FromSeconds(15));
             eventTimer = new Timer(EventTick, eventLockObject, TimeSpan.Zero, TimeSpan.FromSeconds(15));
+            eventParticipantTimer = new Timer(EventParticipantTick,eventParticipantLockObject,TimeSpan.Zero,TimeSpan.FromSeconds(60));
         }
 
         private void EmailVerificationTick(object state)
@@ -86,6 +98,11 @@ namespace Congress.PushNotification
             if (!Monitor.TryEnter(state))
                 return;            
             Monitor.Exit(state);
+        }
+
+        private void EventParticipantTick(object state)
+        {
+
         }
     }
 }

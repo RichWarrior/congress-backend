@@ -13,6 +13,19 @@ namespace Congress.Data.Service
             this.dbContext = dbContext;
         }
 
+        public List<Event> FilterEvent(int cityId, int countryId, int categoryId)
+        {
+            string sql = @"SELECT * FROM event e
+            INNER JOIN eventcategory ec ON ec.eventId = e.id
+            WHERE e.statusId = 2 AND e.endDate > NOW() AND e.countryId = @countryId AND e.cityId = @cityId AND ec.categoryId = @categoryId AND ec.statusId = 2";
+            return dbContext.GetByQueryAll<Event>(sql, new
+            {
+                cityId = cityId,
+                countryId = countryId,
+                categoryId = categoryId
+            }).ToList();
+        }
+
         public List<Event> GetActiveEvents(int userId)
         {
             string sql = @"SELECT * FROM event WHERE endDate >  NOW() AND statusId = 2 AND userId = @userId";

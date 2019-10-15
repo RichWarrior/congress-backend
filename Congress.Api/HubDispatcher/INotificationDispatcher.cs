@@ -7,7 +7,7 @@ namespace Congress.Api.HubDispatcher
     {
         Task SendEmailVerification(EmailVerificationQueueModel model);
         Task SendPassword(PasswordQueueModel model);
-
         Task SendEventPushNotification(EventQueueModel model);
+        Task SendEventParticipantRequest(EventParticipantRequestQueueModel model);
     }
 }

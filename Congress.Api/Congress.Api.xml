@@ -239,6 +239,13 @@
             <param name="_event"></param>
             <returns></returns>
         </member>
+        <member name="M:Congress.Api.Controllers.EventController.FilterEvent(Congress.Api.Models.FilterModel)">
+            <summary>
+            Etkinlikleri Filtreler
+            </summary>
+            <param name="filterModel"></param>
+            <returns></returns>
+        </member>
         <member name="M:Congress.Api.Controllers.JobController.GetJobs">
             <summary>
             Meslek Dallarını Geri Döndürür.

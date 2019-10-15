@@ -42,5 +42,7 @@ namespace Congress.Core.Interface
         /// <param name="_params"></param>
         /// <returns></returns>
         List<Event> GetEvents(string sql,object _params);
+
+        List<Event> FilterEvent(int cityId, int countryId, int categoryId);
     }
 }

@@ -39,7 +39,7 @@ namespace Congress.Api.Controllers
             IEvent _SEvent, IMinio _SMinio,
             IUser _SUser, IEventDetail _SEventDetail, IEventParticipant _SEventParticipant,
             IEventCategory _SEventCategory, ICategory _SCategory, IEventSponsor _SEventSponsor,
-            ISponsor _SSponsor,IUserInterest _SUserInterest,
+            ISponsor _SSponsor, IUserInterest _SUserInterest,
             INotificationDispatcher notificationDispatcher
             )
             : base(_SMethod)
@@ -872,7 +872,7 @@ namespace Congress.Api.Controllers
                 baseResult.errMessage = "Kendinize Ait Olmayan Bir Etkinliğe Müdahale Edemezsiniz";
             }
             if (isSuccess)
-            {             
+            {
                 return Json(baseResult);
             }
             else
@@ -888,7 +888,7 @@ namespace Congress.Api.Controllers
         /// <returns></returns>
         [HttpPost("gethomepageevent")]
         [AllowAnonymous]
-        public  IActionResult GetActiveEvents()
+        public IActionResult GetActiveEvents()
         {
             BaseResult<EventModel> baseResult = new BaseResult<EventModel>();
             bool isAuthenticated = HttpContext.User.Identity.IsAuthenticated;
@@ -896,7 +896,7 @@ namespace Congress.Api.Controllers
             {
                 int userId = Convert.ToInt32(HttpContext.User.Identity.Name);
                 User user = _SUser.GetById(userId);
-                if (_SUserInterest.GetUserInterest(userId).Count>0)
+                if (_SUserInterest.GetUserInterest(userId).Count > 0)
                 {
                     string sql = @"SELECT e.*,ct.name 'CountryName',ci.name 'CityName',CONCAT(u.name,' ',u.surname)
                     'creatorName' FROM event e
@@ -909,7 +909,7 @@ namespace Congress.Api.Controllers
                     INNER JOIN userinterest ui ON u.id = ui.userId
                     WHERE u.id = @userId AND ui.statusId = 2  GROUP BY ui.interestId
                     ) AND e.countryId = @countryId AND e.cityId = @cityId ORDER BY e.id ASC";
-                    baseResult.data.events = _SEvent.GetEvents(sql,new {
+                    baseResult.data.events = _SEvent.GetEvents(sql, new {
                         userId = userId,
                         countryId = user.countryId,
                         cityId = user.cityId
@@ -923,7 +923,7 @@ namespace Congress.Api.Controllers
                     INNER JOIN city ci ON ci.id= e.cityId
                     INNER JOIN user u ON u.id = e.userId
                     WHERE e.statusId = 2 AND e.endDate > NOW() AND ct.id = @countryId AND ci.id = @cityId ORDER BY e.id ASC";
-                    baseResult.data.events = _SEvent.GetEvents(sql,new {
+                    baseResult.data.events = _SEvent.GetEvents(sql, new {
                         countyId = user.countryId,
                         cityId = user.cityId
                     });
@@ -936,7 +936,7 @@ namespace Congress.Api.Controllers
                 WHERE e.endDate > NOW() AND e.statusId = 2 ORDER BY e.id ASC";
                 baseResult.data.events = _SEvent.GetEvents(sql, new { });
             }
-            var distinctItems = baseResult.data.events.GroupBy(x=>x.id).Select(y=>y.First());
+            var distinctItems = baseResult.data.events.GroupBy(x => x.id).Select(y => y.First());
             List<Event> temp = new List<Event>();
             foreach (var item in distinctItems)
             {
@@ -970,6 +970,34 @@ namespace Congress.Api.Controllers
                 return new NotFoundObjectResult(baseResult);
             }
         }
+        /// <summary>
+        /// Etkinlikleri Filtreler
+        /// </summary>
+        /// <param name="filterModel"></param>
+        /// <returns></returns>
+        [HttpPost("filterevent")]
+        [AllowAnonymous]
+        public IActionResult FilterEvent([FromBody]FilterModel filterModel)
+        {
+            BaseResult<EventModel> baseResult = new BaseResult<EventModel>();
+            baseResult.data.events = _SEvent.FilterEvent(filterModel.cityId, filterModel.countryId, filterModel.subCategoryId);
+            return Json(baseResult);
+        }
 
+        [HttpPost("sendparticipantrequest")]
+        [UserValidation]
+        public async Task<IActionResult> SendParticipantRequest([FromBody]Event _event)
+        {
+            BaseResult<EventModel> baseResult = new BaseResult<EventModel>();
+            int eventId = _event.id;
+            int userId = Convert.ToInt32(HttpContext.User.Identity.Name);
+            EventParticipantRequestQueueModel eventParticipantRequestQueueModel = new EventParticipantRequestQueueModel()
+            {
+                 eventId = eventId,
+                 userId = userId
+            };
+            await notificationDispatcher.SendEventParticipantRequest(eventParticipantRequestQueueModel);
+            return Json(baseResult);
+        }
     }
 }

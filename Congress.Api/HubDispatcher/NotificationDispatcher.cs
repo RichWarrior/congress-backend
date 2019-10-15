@@ -17,6 +17,11 @@ namespace Congress.Api.HubDispatcher
             await this._hubContext.Clients.All.SendAsync("SendEmailVerification", model);
         }
 
+        public Task SendEventParticipantRequest(EventParticipantRequestQueueModel model)
+        {
+            return this._hubContext.Clients.All.SendAsync("sendEventParticipantRequest",model);
+        }
+
         public async Task SendEventPushNotification(EventQueueModel model)
         {
             await this._hubContext.Clients.All.SendAsync("sendEventPushNotification", model);
