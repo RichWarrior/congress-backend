@@ -1,7 +1,10 @@
-﻿using Congress.Core.Interface;
+﻿using Congress.Core.Entity;
+using Congress.Core.Interface;
 using Congress.Data.Data;
 using Congress.Data.Service;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 
 namespace Congress.TaskSchedule
@@ -23,7 +26,16 @@ namespace Congress.TaskSchedule
         {
             if (!Monitor.TryEnter(state))
                 return;
-            Console.WriteLine("Timer Do Work");
+            List<Sponsor> sponsors = _SSponsor.GetSponsors();
+            List<Sponsor> getWaitingActivation = sponsors.Where(x => x.statusId == 3).ToList();
+            foreach (var item in getWaitingActivation)
+            {
+                item.statusId = 2;
+                if (!_SSponsor.UpdateSponsor(item))
+                {
+                    Console.WriteLine("Sponsor Güncellenemedi");
+                }                
+            }
             Monitor.Exit(state);
         }
     }
