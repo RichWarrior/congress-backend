@@ -13,13 +13,20 @@
 
         public Connection()
         {
-            mysqlCongress = "Server=192.168.2.219;Database=congress;Uid=root;Pwd=03102593;";
-            minioHost = "192.168.2.219:9000";
-            remoteMinioHost = "212.154.81.35:9000";
-            minioSecretKey = "03102593";
-            minioAccessKey = "admin";
-            apiUrl = "http://localhost:5000";
-            weburl = "http://localhost:8080";
+            //mysqlCongress = "Server=192.168.2.219;Database=congress;Uid=root;Pwd=03102593;";
+            //minioHost = "192.168.2.219:9000";
+            //remoteMinioHost = "212.154.81.35:9000";
+            //minioSecretKey = "03102593";
+            //minioAccessKey = "admin";
+            //apiUrl = "http://localhost:5000";
+            //weburl = "http://localhost:8080";
+            mysqlCongress = "Server=165.22.81.76;Database=congress;Uid=root;Pwd=03102593;";
+            minioHost = "http://minio.congretic.com";
+            remoteMinioHost = "http://minio.congretic.com";
+            minioSecretKey = "123456789";
+            minioAccessKey = "root";
+            apiUrl = "http://api.congretic.com";
+            weburl = "http://congretic.com";
         }
     }
 }
