@@ -49,6 +49,7 @@ namespace Congress.MailLibrary
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 Debug.WriteLine(ex.Message);
                 return false;
             }

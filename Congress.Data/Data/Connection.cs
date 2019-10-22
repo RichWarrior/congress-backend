@@ -21,8 +21,8 @@
             //apiUrl = "http://localhost:5000";
             //weburl = "http://localhost:8080";
             mysqlCongress = "Server=165.22.81.76;Database=congress;Uid=root;Pwd=03102593;";
-            minioHost = "http://minio.congretic.com";
-            remoteMinioHost = "http://minio.congretic.com";
+            minioHost = "165.22.81.76:9000";
+            remoteMinioHost = "165.22.81.76:9000";
             minioSecretKey = "123456789";
             minioAccessKey = "root";
             apiUrl = "http://api.congretic.com";
