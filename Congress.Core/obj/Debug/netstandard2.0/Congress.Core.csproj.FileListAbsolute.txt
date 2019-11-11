@@ -9,4 +9,3 @@ C:\Projects\congress-backend\Congress.Core\obj\Debug\netstandard2.0\Congress.Cor
 C:\Projects\congress-backend\Congress.Core\bin\Debug\netstandard2.0\Microsoft.AspNetCore.Http.Features.dll
 C:\Projects\congress-backend\Congress.Core\bin\Debug\netstandard2.0\Microsoft.AspNetCore.Http.Features.xml
 C:\Projects\congress-backend\Congress.Core\obj\Debug\netstandard2.0\Congress.Core.csproj.CopyComplete
-C:\Projects\congress-backend\Congress.Core\obj\Debug\netstandard2.0\Congress.Core.csproj.CoreCompileInputs.cache

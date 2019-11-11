@@ -27,7 +27,7 @@ namespace Congress.Api.Filters
                 {
                     User user = JsonConvert.DeserializeObject<User>(jsonUser);
                     if(user.userTypeId != (int)enumUserType.doctor) {
-                        BaseResult<string> baseResult = new BaseResult<string>();
+                        BaseResult<UserModel> baseResult = new BaseResult<UserModel>();
                         baseResult.errMessage = "Buraya Erişim Yetkiniz Bulunmamaktadır";
                         baseResult.statusCode = HttpStatusCode.NotFound;
                         context.Result = new NotFoundObjectResult(baseResult);
