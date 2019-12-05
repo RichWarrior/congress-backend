@@ -10,14 +10,11 @@
         "projectUniqueName": "C:\\Projects\\congress-backend\\Congress.Core\\Congress.Core.csproj",
         "projectName": "Congress.Core",
         "projectPath": "C:\\Projects\\congress-backend\\Congress.Core\\Congress.Core.csproj",
-        "packagesPath": "C:\\Users\\Faruk\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\Ömer Faruk Şahin\\.nuget\\packages\\",
         "outputPath": "C:\\Projects\\congress-backend\\Congress.Core\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Faruk\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Ömer Faruk Şahin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -44,6 +41,10 @@
             "Dapper.Contrib": {
               "target": "Package",
               "version": "[2.0.4, )"
+            },
+            "Microsoft.AspNetCore.Http.Features": {
+              "target": "Package",
+              "version": "[2.1.1, )"
             },
             "NETStandard.Library": {
               "suppressParent": "All",
@@ -72,14 +73,11 @@
         "projectUniqueName": "C:\\Projects\\congress-backend\\Congress.Data\\Congress.Data.csproj",
         "projectName": "Congress.Data",
         "projectPath": "C:\\Projects\\congress-backend\\Congress.Data\\Congress.Data.csproj",
-        "packagesPath": "C:\\Users\\Faruk\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\Ömer Faruk Şahin\\.nuget\\packages\\",
         "outputPath": "C:\\Projects\\congress-backend\\Congress.Data\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Faruk\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Ömer Faruk Şahin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -150,14 +148,11 @@
         "projectUniqueName": "C:\\Projects\\congress-backend\\Congress.MailLibrary\\Congress.MailLibrary.csproj",
         "projectName": "Congress.MailLibrary",
         "projectPath": "C:\\Projects\\congress-backend\\Congress.MailLibrary\\Congress.MailLibrary.csproj",
-        "packagesPath": "C:\\Users\\Faruk\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\Ömer Faruk Şahin\\.nuget\\packages\\",
         "outputPath": "C:\\Projects\\congress-backend\\Congress.MailLibrary\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Faruk\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Ömer Faruk Şahin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -208,14 +203,11 @@
         "projectUniqueName": "C:\\Projects\\congress-backend\\Congress.PushNotification\\Congress.PushNotification.csproj",
         "projectName": "Congress.PushNotification",
         "projectPath": "C:\\Projects\\congress-backend\\Congress.PushNotification\\Congress.PushNotification.csproj",
-        "packagesPath": "C:\\Users\\Faruk\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\Ömer Faruk Şahin\\.nuget\\packages\\",
         "outputPath": "C:\\Projects\\congress-backend\\Congress.PushNotification\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Faruk\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Ömer Faruk Şahin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

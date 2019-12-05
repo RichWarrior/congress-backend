@@ -931,8 +931,10 @@ namespace Congress.Api.Controllers
             }
             else
             {
-                string sql = @"SELECT e.*,CONCAT(u.name,' ',u.surname) FROM event e
-                INNER JOIN user u ON u.id = e.userId
+                string sql = @"SELECT e.*,ct.name 'CountryName', ci.name 'CityName', CONCAT(u.name,' ',u.surname) AS 'creatorName' FROM event e
+                    INNER JOIN country ct ON ct.id = e.countryId
+                    INNER JOIN city ci ON ci.id= e.cityId
+                    INNER JOIN user u ON u.id = e.userId
                 WHERE e.endDate > NOW() AND e.statusId = 2 ORDER BY e.id ASC";
                 baseResult.data.events = _SEvent.GetEvents(sql, new { });
             }

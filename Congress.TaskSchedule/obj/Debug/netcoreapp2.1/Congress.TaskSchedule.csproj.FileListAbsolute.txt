@@ -3,7 +3,6 @@ C:\Projects\congress-backend\Congress.TaskSchedule\bin\Debug\netcoreapp2.1\Congr
 C:\Projects\congress-backend\Congress.TaskSchedule\bin\Debug\netcoreapp2.1\Congress.TaskSchedule.runtimeconfig.dev.json
 C:\Projects\congress-backend\Congress.TaskSchedule\bin\Debug\netcoreapp2.1\Congress.TaskSchedule.dll
 C:\Projects\congress-backend\Congress.TaskSchedule\bin\Debug\netcoreapp2.1\Congress.TaskSchedule.pdb
-C:\Projects\congress-backend\Congress.TaskSchedule\obj\Debug\netcoreapp2.1\Congress.TaskSchedule.csproj.CoreCompileInputs.cache
 C:\Projects\congress-backend\Congress.TaskSchedule\obj\Debug\netcoreapp2.1\Congress.TaskSchedule.AssemblyInfoInputs.cache
 C:\Projects\congress-backend\Congress.TaskSchedule\obj\Debug\netcoreapp2.1\Congress.TaskSchedule.AssemblyInfo.cs
 C:\Projects\congress-backend\Congress.TaskSchedule\obj\Debug\netcoreapp2.1\Congress.TaskSchedule.dll

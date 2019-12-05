@@ -1470,7 +1470,8 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
-          "Dapper.Contrib": "2.0.4"
+          "Dapper.Contrib": "2.0.4",
+          "Microsoft.AspNetCore.Http.Features": "2.1.1"
         },
         "compile": {
           "bin/placeholder/Congress.Core.dll": {}
@@ -5461,8 +5462,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Faruk\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\Ömer Faruk Şahin\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
@@ -5470,14 +5470,11 @@
       "projectUniqueName": "C:\\Projects\\congress-backend\\Congress.PushNotification\\Congress.PushNotification.csproj",
       "projectName": "Congress.PushNotification",
       "projectPath": "C:\\Projects\\congress-backend\\Congress.PushNotification\\Congress.PushNotification.csproj",
-      "packagesPath": "C:\\Users\\Faruk\\.nuget\\packages\\",
+      "packagesPath": "C:\\Users\\Ömer Faruk Şahin\\.nuget\\packages\\",
       "outputPath": "C:\\Projects\\congress-backend\\Congress.PushNotification\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Faruk\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Ömer Faruk Şahin\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
